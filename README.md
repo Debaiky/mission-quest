@@ -53,7 +53,7 @@ Definitions live in `src/lib/domain/` (pure, unit-tested) and are wired up in `s
 1. Create a Postgres database (Neon via the Vercel Marketplace works well). Set `DATABASE_URL` (pooled) and `DIRECT_URL` (direct) in the project's environment variables.
 2. Set `SESSION_SECRET`, `CRON_SECRET`, `NEXT_PUBLIC_APP_URL`, and optionally `RESEND_API_KEY` + `EMAIL_FROM` (email) and `NEXT_PUBLIC_VAPID_PUBLIC_KEY` + `VAPID_PRIVATE_KEY` + `VAPID_SUBJECT` (push; generate with `npx web-push generate-vapid-keys`). Leave `DEMO_SEED` unset in production.
 3. The build command is `prisma generate && prisma migrate deploy && next build` (already in `package.json`). Seed system data once with `npx prisma db seed` against the production database (with `DEMO_SEED` unset it creates only categories, levels, achievements and cosmetics).
-4. `vercel.json` schedules `/api/cron/tick` hourly. On the Hobby plan crons run at most daily; the app stays correct, but reminders are only timely if you also ping `GET /api/cron/tick` with `Authorization: Bearer $CRON_SECRET` from an external scheduler.
+4. `vercel.json` schedules `/api/cron/tick` once a day at 18:00 UTC because the Hobby plan only allows daily crons. The app stays correct regardless (every read self-heals); for timely reminders on Hobby, ping `GET /api/cron/tick` hourly with `Authorization: Bearer $CRON_SECRET` from an external scheduler, or on Pro change the schedule to `0 * * * *`.
 
 ## Project layout
 
