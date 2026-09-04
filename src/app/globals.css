@@ -1,26 +1,305 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/*
+  Mission Quest design tokens (docs/phase-2-design.md §2).
+  Two themes share one semantic token set:
+    - Slate  (parent app + public pages): [data-theme="slate"]   (default on :root)
+    - Sunrise (child app):                [data-theme="sunrise"]
+  Dark variants are applied with the `.dark` class on the same element or an ancestor.
+  Components use only semantic utilities (bg-surface, text-ink, bg-primary, …) so the
+  same component renders correctly under either theme.
+*/
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root,
+[data-theme="slate"] {
+  color-scheme: light;
+  --bg: #f4f6fa;
+  --bg-2: #f4f6fa;
+  --surface: #ffffff;
+  --surface-2: #eef1f7;
+  --ink: #1a2233;
+  --ink-2: #3b4559;
+  --muted: #66718a;
+  --line: #e1e6ef;
+  --primary: #4c4ddc;
+  --primary-soft: #e6e6fb;
+  --primary-deep: #3a3bb8;
+  --on-primary: #ffffff;
+  --success: #1fa971;
+  --success-soft: #dff5ea;
+  --success-ink: #146b47;
+  --warning: #e0a21b;
+  --warning-soft: #fbf1d8;
+  --warning-ink: #7a5a0a;
+  --danger: #e5484d;
+  --danger-soft: #fde7e8;
+  --danger-ink: #a12a2e;
+  --sun: #f5a623;
+  --sun-soft: #fff1d6;
+  --sun-ink: #7a4e00;
+  --gold: #e3a008;
+  --gold-deep: #c98a04;
+  --flame: #ff6b35;
+  --flame-soft: #ffe4d9;
+  --flame-ink: #9a3a12;
+  --leaf: #2db07a;
+  --leaf-soft: #ddf5ea;
+  --leaf-ink: #146b47;
+  --berry: #8b5cf6;
+  --berry-soft: #ece4ff;
+  --berry-ink: #5b3bb0;
+  --peach: #ffe3da;
+  --peach-ink: #8c3f2a;
+  --shadow-card: 0 1px 2px rgba(26, 34, 51, 0.04);
+  --shadow-float: 0 12px 32px rgba(26, 34, 51, 0.14);
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --font-body: var(--font-instrument), system-ui, "Segoe UI", sans-serif;
+  --font-display: var(--font-bricolage), system-ui, sans-serif;
+  --ring: var(--primary);
+}
+
+.dark[data-theme="slate"],
+.dark :where([data-theme="slate"]),
+:root.dark {
+  color-scheme: dark;
+  --bg: #0f1420;
+  --bg-2: #0f1420;
+  --surface: #171d2b;
+  --surface-2: #1e2536;
+  --ink: #e8ecf4;
+  --ink-2: #c3cad8;
+  --muted: #98a2b8;
+  --line: #2a3346;
+  --primary: #8a8bff;
+  --primary-soft: #25264a;
+  --primary-deep: #a5a6ff;
+  --on-primary: #0f1420;
+  --success: #3fc98f;
+  --success-soft: #123a2b;
+  --success-ink: #9cebc4;
+  --warning: #f2b93b;
+  --warning-soft: #3a2e12;
+  --warning-ink: #ffd58a;
+  --danger: #ff6b70;
+  --danger-soft: #3d1a1c;
+  --danger-ink: #ffb3b5;
+  --sun: #ffb84d;
+  --sun-soft: #3a2e12;
+  --sun-ink: #ffd58a;
+  --gold: #f2b93b;
+  --gold-deep: #c98a04;
+  --flame: #ff8a5c;
+  --flame-soft: #3d2416;
+  --flame-ink: #ffb59a;
+  --leaf: #4cd394;
+  --leaf-soft: #123a2b;
+  --leaf-ink: #9cebc4;
+  --berry: #a78bfa;
+  --berry-soft: #2e2459;
+  --berry-ink: #cdbeff;
+  --peach: #3d2416;
+  --peach-ink: #ffb59a;
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-float: 0 12px 32px rgba(0, 0, 0, 0.5);
+}
+
+[data-theme="sunrise"] {
+  color-scheme: light;
+  --bg: #f3f7ff;
+  --bg-2: #e6eeff;
+  --surface: #ffffff;
+  --surface-2: #eef3ff;
+  --ink: #1f2a44;
+  --ink-2: #3f4b6b;
+  --muted: #6b7a99;
+  --line: #dce4f5;
+  --primary: #3f7bea;
+  --primary-soft: #dce8ff;
+  --primary-deep: #2f63c9;
+  --on-primary: #ffffff;
+  --success: #2db07a;
+  --success-soft: #ddf5ea;
+  --success-ink: #146b47;
+  --warning: #e3a008;
+  --warning-soft: #fff1d6;
+  --warning-ink: #7a4e00;
+  --danger: #e5484d;
+  --danger-soft: #fde7e8;
+  --danger-ink: #a12a2e;
+  --sun: #f5a623;
+  --sun-soft: #fff1d6;
+  --sun-ink: #7a4e00;
+  --gold: #e3a008;
+  --gold-deep: #c98a04;
+  --flame: #ff6b35;
+  --flame-soft: #ffe4d9;
+  --flame-ink: #9a3a12;
+  --leaf: #2db07a;
+  --leaf-soft: #ddf5ea;
+  --leaf-ink: #146b47;
+  --berry: #8b5cf6;
+  --berry-soft: #ece4ff;
+  --berry-ink: #5b3bb0;
+  --peach: #ffe3da;
+  --peach-ink: #8c3f2a;
+  --shadow-card: 0 6px 20px rgba(31, 42, 68, 0.08);
+  --shadow-float: 0 18px 48px rgba(31, 42, 68, 0.22);
+  --radius-sm: 12px;
+  --radius-md: 20px;
+  --radius-lg: 28px;
+  --font-body: var(--font-nunito), system-ui, "Segoe UI", sans-serif;
+  --font-display: var(--font-baloo), "Arial Rounded MT Bold", "Trebuchet MS", sans-serif;
+  --ring: var(--primary);
+}
+
+.dark[data-theme="sunrise"],
+.dark :where([data-theme="sunrise"]) {
+  color-scheme: dark;
+  --bg: #161c45;
+  --bg-2: #0f1330;
+  --surface: #1e2650;
+  --surface-2: #26305e;
+  --ink: #f2f5ff;
+  --ink-2: #c9d2f2;
+  --muted: #8e9ac4;
+  --line: #2f3a6e;
+  --primary: #6b9bff;
+  --primary-soft: #243566;
+  --primary-deep: #3f6fd9;
+  --on-primary: #ffffff;
+  --success: #4cd394;
+  --success-soft: #123a2b;
+  --success-ink: #9cebc4;
+  --warning: #f2b93b;
+  --warning-soft: #3a2e12;
+  --warning-ink: #ffd58a;
+  --danger: #ff6b70;
+  --danger-soft: #3d1a1c;
+  --danger-ink: #ffb3b5;
+  --sun: #ffb84d;
+  --sun-soft: #3a2e12;
+  --sun-ink: #ffd58a;
+  --gold: #f2b93b;
+  --gold-deep: #c98a04;
+  --flame: #ff8a5c;
+  --flame-soft: #3d2416;
+  --flame-ink: #ffb59a;
+  --leaf: #4cd394;
+  --leaf-soft: #123a2b;
+  --leaf-ink: #9cebc4;
+  --berry: #a78bfa;
+  --berry-soft: #2e2459;
+  --berry-ink: #cdbeff;
+  --peach: #3d2416;
+  --peach-ink: #ffb59a;
+  --shadow-card: 0 6px 20px rgba(0, 0, 0, 0.35);
+  --shadow-float: 0 18px 48px rgba(0, 0, 0, 0.5);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-ground: var(--bg);
+  --color-ground-2: var(--bg-2);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-primary: var(--primary);
+  --color-primary-soft: var(--primary-soft);
+  --color-primary-deep: var(--primary-deep);
+  --color-on-primary: var(--on-primary);
+  --color-success: var(--success);
+  --color-success-soft: var(--success-soft);
+  --color-success-ink: var(--success-ink);
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
+  --color-warning-ink: var(--warning-ink);
+  --color-danger: var(--danger);
+  --color-danger-soft: var(--danger-soft);
+  --color-danger-ink: var(--danger-ink);
+  --color-sun: var(--sun);
+  --color-sun-soft: var(--sun-soft);
+  --color-sun-ink: var(--sun-ink);
+  --color-gold: var(--gold);
+  --color-gold-deep: var(--gold-deep);
+  --color-flame: var(--flame);
+  --color-flame-soft: var(--flame-soft);
+  --color-flame-ink: var(--flame-ink);
+  --color-leaf: var(--leaf);
+  --color-leaf-soft: var(--leaf-soft);
+  --color-leaf-ink: var(--leaf-ink);
+  --color-berry: var(--berry);
+  --color-berry-soft: var(--berry-soft);
+  --color-berry-ink: var(--berry-ink);
+  --color-peach: var(--peach);
+  --color-peach-ink: var(--peach-ink);
+  --shadow-card: var(--shadow-card);
+  --shadow-float: var(--shadow-float);
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --font-body: var(--font-body);
+  --font-display: var(--font-display);
+  --ease-out-soft: cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  * {
+    border-color: var(--line);
+  }
+  html {
+    -webkit-font-smoothing: antialiased;
+    text-size-adjust: 100%;
+  }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  [data-theme] {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-body);
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    text-wrap: balance;
+  }
+  :focus-visible {
+    outline: 3px solid var(--ring);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+  button, [role="button"] {
+    cursor: pointer;
+  }
+  button:disabled {
+    cursor: not-allowed;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer utilities {
+  .font-display { font-family: var(--font-display); }
+  .font-body { font-family: var(--font-body); }
+  .tabular { font-variant-numeric: tabular-nums; }
+  .kid-ground { background: linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%); }
+  .safe-bottom { padding-bottom: env(safe-area-inset-bottom, 0px); }
+  .label-caps { font-size: 13px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+  .scrollbar-none { scrollbar-width: none; }
+  .scrollbar-none::-webkit-scrollbar { display: none; }
 }

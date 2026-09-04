@@ -1,0 +1,132 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@500;600;700;800&display=swap">
+  <style>
+    :root{--bg1:#F3F7FF;--bg2:#E6EEFF;--surface:#FFFFFF;--surface2:#EEF3FF;--ink:#1F2A44;--ink2:#3F4B6B;--muted:#6B7A99;--line:#DCE4F5;--sky:#3F7BEA;--sky-deep:#2F63C9;--sky-soft:#DCE8FF;--sun:#F5A623;--sun-soft:#FFF1D6;--sun-ink:#7A4E00;--leaf:#2DB07A;--leaf-soft:#DDF5EA;--leaf-ink:#146B47;--berry:#8B5CF6;--berry-soft:#ECE4FF;--berry-ink:#5B3BB0;--shadow:0 6px 20px rgba(31,42,68,.08)}
+    body{margin:0;background:#E6EEFF;font-family:Nunito,"Segoe UI",system-ui,sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased}
+    a{color:var(--sky)} a:hover{color:var(--sky-deep)}
+    .phone{width:390px;height:844px;overflow:hidden;position:relative;display:flex;flex-direction:column;background:#DDF5EA}
+    .disp{font-family:"Baloo 2","Arial Rounded MT Bold","Trebuchet MS",sans-serif;font-weight:800;letter-spacing:-.01em}
+    .card{background:var(--surface);border-radius:20px;box-shadow:var(--shadow)}
+    .nav{flex:none;height:84px;padding:8px 8px 20px;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:2px;background:var(--surface);border-top:1.5px solid var(--line);position:relative;z-index:2}
+    .nav a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border-radius:14px;font-size:11px;font-weight:800;color:var(--muted);text-decoration:none;height:56px}
+    .nav a.on{background:var(--sky-soft);color:var(--sky)}
+    .nav svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+    .wl{font-family:"Baloo 2",sans-serif;font-weight:800;font-size:13px;letter-spacing:.12em;fill:#3F4B6B}
+    .num{font-family:"Baloo 2",sans-serif;font-weight:800;font-size:17px;fill:#6B7A99;text-anchor:middle}
+    @keyframes pulse{0%{r:30;opacity:.7}100%{r:46;opacity:0}}
+    .pulse{animation:pulse 1.8s ease-out infinite}
+    @media (prefers-reduced-motion:reduce){.pulse{animation:none;opacity:.35}}
+  </style>
+</helmet>
+<div class="phone">
+
+  <svg viewBox="0 0 390 760" width="390" height="760" style="position:absolute;left:0;top:0" role="img" aria-label="World map: Whispering Forest, Crystal Mountain, Sunny Castle. You are at level 7.">
+    <defs>
+      <linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F3F7FF"></stop><stop offset="1" stop-color="#ECE4FF"></stop></linearGradient>
+      <linearGradient id="mtG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E3ECFA"></stop><stop offset="1" stop-color="#EEF3FF"></stop></linearGradient>
+    </defs>
+    <rect x="0" y="0" width="390" height="260" fill="url(#skyG)"></rect>
+    <rect x="0" y="260" width="390" height="250" fill="url(#mtG)"></rect>
+    <rect x="0" y="510" width="390" height="250" fill="#DDF5EA"></rect>
+
+    <path d="M-10 510 60 470 120 510 190 455 260 510 320 465 400 510z" fill="#CFE0F8"></path>
+    <path d="M60 470 40 494h40zM190 455l-22 26h44zM320 465l-20 24h40z" fill="#FFFFFF"></path>
+    <path d="M120 388 170 300l50 88z" fill="#C5D6F2"></path><path d="M170 300l-14 26h28z" fill="#FFFFFF"></path>
+    <path d="M250 400 300 330l50 70z" fill="#BFD1F0"></path><path d="M300 330l-12 20h24z" fill="#FFFFFF"></path>
+    <g fill="#8FD9B3"><circle cx="40" cy="600" r="22"></circle><circle cx="330" cy="560" r="18"></circle><circle cx="352" cy="650" r="24"></circle><circle cx="70" cy="700" r="20"></circle><circle cx="300" cy="720" r="16"></circle></g>
+    <g fill="#7A5A3A"><rect x="37" y="618" width="6" height="16" rx="2"></rect><rect x="327" y="575" width="6" height="14" rx="2"></rect><rect x="349" y="672" width="6" height="16" rx="2"></rect><rect x="67" y="718" width="6" height="14" rx="2"></rect><rect x="297" y="734" width="6" height="12" rx="2"></rect></g>
+    <g fill="#D8CCFB" opacity=".9"><rect x="270" y="150" width="90" height="70" rx="6"></rect><rect x="262" y="120" width="22" height="100" rx="4"></rect><rect x="346" y="120" width="22" height="100" rx="4"></rect><rect x="300" y="110" width="30" height="110" rx="4"></rect><path d="M262 120h22l-11-18zM346 120h22l-11-18zM300 110h30l-15-22z"></path></g>
+
+    <polyline points="330,720 190,690 70,640 200,590 300,540 180,480 90,420 200,360 300,300 180,240 90,180 200,120 300,60" fill="none" stroke="#FFFFFF" stroke-width="22" stroke-linecap="round" stroke-linejoin="round" opacity=".9"></polyline>
+    <polyline points="330,720 190,690 70,640 200,590 300,540 180,480" fill="none" stroke="#2DB07A" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="1 14"></polyline>
+    <polyline points="180,480 90,420 200,360 300,300 180,240 90,180 200,120 300,60" fill="none" stroke="#C9D2E6" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="1 14"></polyline>
+
+    <text x="24" y="748" class="wl">WHISPERING FOREST</text>
+    <text x="24" y="290" class="wl">CRYSTAL MOUNTAIN</text>
+    <text x="24" y="40" class="wl" fill="#8E9AC4">SUNNY CASTLE</text>
+
+    <g>
+      <circle cx="190" cy="690" r="22" fill="#2DB07A"></circle><path d="m181 690 6 6 12-12" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"></path>
+      <circle cx="70" cy="640" r="22" fill="#2DB07A"></circle><path d="m61 640 6 6 12-12" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"></path>
+      <circle cx="200" cy="590" r="22" fill="#2DB07A"></circle><path d="m191 590 6 6 12-12" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"></path>
+      <circle cx="300" cy="540" r="22" fill="#2DB07A"></circle><path d="m291 540 6 6 12-12" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"></path>
+    </g>
+
+    <circle class="pulse" cx="180" cy="480" r="30" fill="none" stroke="#3F7BEA" stroke-width="4"></circle>
+    <circle cx="180" cy="480" r="30" fill="#3F7BEA"></circle>
+    <circle cx="180" cy="480" r="24" fill="#DCE8FF"></circle>
+    <g transform="translate(158 458) scale(0.6875)"><path d="M14 26 19 9l12 11zM50 26 45 9 33 20z" fill="#E9782E"></path><circle cx="32" cy="36" r="18" fill="#F59A4A"></circle><ellipse cx="32" cy="43" rx="10" ry="7" fill="#FFF3E6"></ellipse><circle cx="25" cy="34" r="2.6" fill="#1F2A44"></circle><circle cx="39" cy="34" r="2.6" fill="#1F2A44"></circle><circle cx="32" cy="41" r="2.2" fill="#1F2A44"></circle></g>
+    <rect x="130" y="516" width="100" height="26" rx="13" fill="#1F2A44"></rect>
+    <text x="180" y="534" text-anchor="middle" fill="#fff" style="font-family:'Baloo 2',sans-serif;font-weight:800;font-size:13px">You are here</text>
+
+    <g>
+      <circle cx="90" cy="420" r="22" fill="#FFFFFF" stroke="#C9D2E6" stroke-width="3"></circle><text x="90" y="426" class="num">8</text>
+      <circle cx="200" cy="360" r="22" fill="#FFFFFF" stroke="#C9D2E6" stroke-width="3"></circle><text x="200" y="366" class="num">9</text>
+      <circle cx="300" cy="300" r="22" fill="#FFFFFF" stroke="#C9D2E6" stroke-width="3"></circle><text x="300" y="306" class="num">10</text>
+    </g>
+
+    <rect x="0" y="0" width="390" height="260" fill="#FFFFFF" opacity=".55"></rect>
+    <g>
+      <circle cx="180" cy="240" r="22" fill="#F2F5FF" stroke="#D5DBEA" stroke-width="3"></circle><text x="180" y="246" class="num" fill="#A3ACC4">11</text>
+      <circle cx="90" cy="180" r="22" fill="#F2F5FF" stroke="#D5DBEA" stroke-width="3"></circle><text x="90" y="186" class="num" fill="#A3ACC4">12</text>
+      <circle cx="200" cy="120" r="22" fill="#F2F5FF" stroke="#D5DBEA" stroke-width="3"></circle><text x="200" y="126" class="num" fill="#A3ACC4">13</text>
+    </g>
+    <g transform="translate(110 68)">
+      <rect x="0" y="0" width="170" height="40" rx="20" fill="#FFFFFF" stroke="#DCE4F5" stroke-width="1.5"></rect>
+      <path d="M22 18v-3a5 5 0 0 1 10 0v3" fill="none" stroke="#6B7A99" stroke-width="2" stroke-linecap="round"></path><rect x="18" y="18" width="18" height="12" rx="3" fill="#6B7A99"></rect>
+      <text x="46" y="25" fill="#3F4B6B" style="font-family:Nunito,sans-serif;font-weight:800;font-size:13px">Reach Level 10 to enter</text>
+    </g>
+  </svg>
+
+  <div style="position:relative;z-index:1;display:flex;flex-direction:column;gap:10px;padding:52px 20px 0">
+    <div class="card" style="padding:14px 16px;display:flex;flex-direction:column;gap:10px">
+      <div style="display:flex;align-items:center;justify-content:space-between">
+        <div style="display:flex;flex-direction:column;gap:1px">
+          <div class="disp" style="font-size:22px;line-height:1.05">Level 7 · Climber</div>
+          <div style="font-size:13px;font-weight:700;color:var(--muted)">Crystal Mountain</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;padding:6px 12px;border-radius:999px;background:var(--berry-soft);color:var(--berry-ink);font-weight:800;font-size:14px">
+          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M12 2l1.8 5.2L19 9l-5.2 1.8L12 16l-1.8-5.2L5 9l5.2-1.8z" fill="#8B5CF6"></path></svg>
+          1,220 XP
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:6px">
+        <div style="height:12px;border-radius:999px;background:var(--berry-soft);overflow:hidden"><div style="width:49%;height:100%;border-radius:999px;background:var(--berry)"></div></div>
+        <div style="display:flex;justify-content:space-between;font-size:13px;font-weight:800;color:var(--muted)"><span>1,050</span><span style="color:var(--berry-ink)">180 XP to Level 8 · Summit Hero</span><span>1,400</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div style="position:absolute;left:20px;right:20px;bottom:98px;z-index:1" class="card">
+    <div style="padding:14px 16px;display:flex;align-items:center;gap:12px">
+      <div style="width:48px;height:48px;border-radius:16px;background:var(--surface2);display:flex;align-items:center;justify-content:center">
+        <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#3F4B6B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18c2-8 6-12 8-12s6 4 8 12"></path><path d="M9 9c1 2 2 3 3 3s2-1 3-3"></path><path d="M2 20h20"></path></svg>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:2px;flex:1;min-width:0">
+        <div style="font-size:12px;font-weight:800;letter-spacing:.06em;color:var(--muted)">NEXT UNLOCK · LEVEL 8</div>
+        <div class="disp" style="font-size:17px;line-height:1.15">Explorer's hat for your fox</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="flex:1"></div>
+  <nav class="nav" aria-label="Main">
+    <a href="#"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8v9a2 2 0 0 1-2 2h-4v-6H9v6H5a2 2 0 0 1-2-2z"></path></svg>Home</a>
+    <a href="#"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="12" r="5"></circle><circle cx="12" cy="12" r="1.5"></circle></svg>Missions</a>
+    <a href="#" class="on"><svg viewBox="0 0 24 24"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2z"></path><path d="M9 4v14M15 6v14"></path></svg>Map</a>
+    <a href="#"><svg viewBox="0 0 24 24"><circle cx="12" cy="9" r="6"></circle><path d="m8.5 14-1.5 7 5-3 5 3-1.5-7"></path></svg>Badges</a>
+    <a href="#"><svg viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="4" rx="1"></rect><path d="M12 8v13M5 12v9h14v-9"></path><path d="M12 8c-2-4-7-3-6-1s5 1 6 1zm0 0c2-4 7-3 6-1s-5 1-6 1z"></path></svg>Rewards</a>
+    <a href="#"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4 4-6 8-6s8 2 8 6"></path></svg>Me</a>
+  </nav>
+</div>
+</x-dc>
+</body>
+</html>

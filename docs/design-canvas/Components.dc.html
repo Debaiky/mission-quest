@@ -1,0 +1,232 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&family=Nunito:wght@600;700;800&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Instrument+Sans:wght@400;500;600&display=swap">
+  <style>
+    :root{--bg1:#F3F7FF;--surface:#FFFFFF;--surface2:#EEF3FF;--ink:#1F2A44;--ink2:#3F4B6B;--muted:#6B7A99;--line:#DCE4F5;--sky:#3F7BEA;--sky-deep:#2F63C9;--sky-soft:#DCE8FF;--sun:#F5A623;--sun-soft:#FFF1D6;--sun-ink:#7A4E00;--gold:#E3A008;--flame:#FF6B35;--flame-soft:#FFE4D9;--flame-ink:#9A3A12;--leaf:#2DB07A;--leaf-soft:#DDF5EA;--leaf-ink:#146B47;--berry:#8B5CF6;--berry-soft:#ECE4FF;--berry-ink:#5B3BB0;--peach:#FFE3DA;--peach-ink:#8C3F2A;--shadow:0 6px 20px rgba(31,42,68,.08);--p-bg:#F4F6FA;--p-ink:#1A2233;--p-muted:#66718A;--p-line:#E1E6EF;--p-primary:#4C4DDC;--p-primary-soft:#E6E6FB;--p-success:#1FA971;--p-warning:#E0A21B;--p-danger:#E5484D}
+    body{margin:0;background:#FFFFFF;font-family:Nunito,"Segoe UI",system-ui,sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased}
+    a{color:var(--sky)} a:hover{color:var(--sky-deep)}
+    .sheet{width:1200px;min-height:1760px;background:#FFFFFF;padding:40px 48px 56px;display:flex;flex-direction:column;gap:36px;box-sizing:border-box}
+    .disp{font-family:"Baloo 2","Arial Rounded MT Bold","Trebuchet MS",sans-serif;font-weight:800;letter-spacing:-.01em}
+    .pf{font-family:"Instrument Sans",system-ui,sans-serif;color:var(--p-ink)}
+    .ph{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-weight:700;color:var(--p-ink)}
+    .sec{display:flex;flex-direction:column;gap:14px}
+    .sec>h2{margin:0;font-family:"Bricolage Grotesque",system-ui,sans-serif;font-weight:700;font-size:18px;color:#1A2233;display:flex;align-items:baseline;gap:10px}
+    .sec>h2 span{font-family:"Instrument Sans",system-ui,sans-serif;font-weight:500;font-size:13px;color:#66718A}
+    .sw{display:flex;flex-direction:column;gap:6px;width:96px}
+    .sw i{display:block;height:56px;border-radius:12px;border:1px solid rgba(26,34,51,.08)}
+    .sw b{font-family:"Instrument Sans",system-ui,sans-serif;font-size:12px;font-weight:600;color:#1A2233}
+    .sw s{font-family:ui-monospace,Menlo,monospace;font-size:11px;color:#66718A;text-decoration:none}
+    .card{background:var(--surface);border-radius:20px;box-shadow:var(--shadow)}
+    .pill{display:inline-flex;align-items:center;gap:5px;height:26px;padding:0 10px;border-radius:999px;font-weight:800;font-size:13px;white-space:nowrap}
+    .btn{display:flex;align-items:center;justify-content:center;height:56px;border-radius:16px;font-family:"Baloo 2",sans-serif;font-weight:800;font-size:21px;color:#fff;background:var(--sky);box-shadow:0 4px 0 var(--sky-deep);padding:0 24px}
+    .tile{width:44px;height:44px;border-radius:14px;background:var(--surface2);display:flex;align-items:center;justify-content:center;font-size:24px;flex:none}
+    .tc{width:212px;padding:14px;display:flex;flex-direction:column;gap:12px}
+    .tc .t{font-family:"Baloo 2",sans-serif;font-weight:800;font-size:17px;line-height:1.15}
+    .tc .m{font-size:12px;font-weight:700;color:var(--muted)}
+    .tc .b{height:44px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-family:"Baloo 2",sans-serif;font-weight:800;font-size:17px;color:#fff;background:var(--sky);box-shadow:0 3px 0 var(--sky-deep)}
+    .cap{font-family:"Instrument Sans",system-ui,sans-serif;font-size:12px;color:#66718A;font-weight:500}
+    .hex{width:64px;height:64px;clip-path:polygon(50% 0,95% 25%,95% 75%,50% 100%,5% 75%,5% 25%);display:flex;align-items:center;justify-content:center}
+    .pbtn{height:36px;padding:0 14px;border-radius:8px;display:inline-flex;align-items:center;gap:8px;font-family:"Instrument Sans",system-ui,sans-serif;font-weight:600;font-size:14px}
+    .st{display:inline-flex;align-items:center;gap:6px;font-family:"Instrument Sans",system-ui,sans-serif;font-size:12.5px;font-weight:600;padding:3px 9px;border-radius:999px}
+    .col{display:flex;flex-direction:column;gap:10px}
+  </style>
+</helmet>
+<div class="sheet">
+
+  <div style="display:flex;justify-content:space-between;align-items:flex-end;border-bottom:1px solid #E1E6EF;padding-bottom:18px">
+    <div style="display:flex;flex-direction:column;gap:4px">
+      <span class="cap" style="letter-spacing:.08em;text-transform:uppercase;font-weight:600">Mission Quest · Design system · Phase 2</span>
+      <span class="ph" style="font-size:30px;letter-spacing:-.01em">Tokens &amp; components</span>
+    </div>
+    <span class="cap">Two themes: <b>Sunrise</b> (child) and <b>Slate</b> (parent). Semantic colours are shared.</span>
+  </div>
+
+  <div class="sec">
+    <h2>Colour <span>Sunrise accents sit at matched lightness so none shouts; Slate keeps one action colour</span></h2>
+    <div style="display:flex;gap:14px;flex-wrap:wrap">
+      <div class="sw"><i style="background:#F3F7FF"></i><b>bg</b><s>#F3F7FF</s></div>
+      <div class="sw"><i style="background:#EEF3FF"></i><b>surface-2</b><s>#EEF3FF</s></div>
+      <div class="sw"><i style="background:#1F2A44"></i><b>ink</b><s>#1F2A44</s></div>
+      <div class="sw"><i style="background:#3F7BEA"></i><b>sky · action</b><s>#3F7BEA</s></div>
+      <div class="sw"><i style="background:#F5A623"></i><b>sun · points</b><s>#F5A623</s></div>
+      <div class="sw"><i style="background:#E3A008"></i><b>gold · golden</b><s>#E3A008</s></div>
+      <div class="sw"><i style="background:#FF6B35"></i><b>flame · streak</b><s>#FF6B35</s></div>
+      <div class="sw"><i style="background:#2DB07A"></i><b>leaf · done</b><s>#2DB07A</s></div>
+      <div class="sw"><i style="background:#8B5CF6"></i><b>berry · level</b><s>#8B5CF6</s></div>
+      <div class="sw"><i style="background:#FFE3DA"></i><b>peach · retry</b><s>#FFE3DA</s></div>
+    </div>
+    <div style="display:flex;gap:14px;flex-wrap:wrap">
+      <div class="sw"><i style="background:#F4F6FA"></i><b>slate bg</b><s>#F4F6FA</s></div>
+      <div class="sw"><i style="background:#1A2233"></i><b>slate ink</b><s>#1A2233</s></div>
+      <div class="sw"><i style="background:#66718A"></i><b>muted</b><s>#66718A</s></div>
+      <div class="sw"><i style="background:#E1E6EF"></i><b>line</b><s>#E1E6EF</s></div>
+      <div class="sw"><i style="background:#4C4DDC"></i><b>primary</b><s>#4C4DDC</s></div>
+      <div class="sw"><i style="background:#1FA971"></i><b>success</b><s>#1FA971</s></div>
+      <div class="sw"><i style="background:#E0A21B"></i><b>warning</b><s>#E0A21B</s></div>
+      <div class="sw"><i style="background:#E5484D"></i><b>danger</b><s>#E5484D</s></div>
+      <div class="sw"><i style="background:linear-gradient(90deg,#3F7BEA 33%,#F29A1F 33% 66%,#2DB07A 66%)"></i><b>chart slots 1–3</b><s>validated</s></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <h2>Type <span>Baloo 2 + Nunito for children · Bricolage Grotesque + Instrument Sans for parents</span></h2>
+    <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:32px">
+      <div style="display:flex;flex-direction:column;gap:10px;padding:20px;border-radius:20px;background:#F3F7FF">
+        <div class="disp" style="font-size:44px;line-height:1.05">1,240 <span class="cap" style="font-family:Nunito,sans-serif;font-weight:700">hero number · Baloo 2 800 · 44/1.05</span></div>
+        <div class="disp" style="font-size:30px;line-height:1.1">Hi, Alex! 👋 <span class="cap" style="font-family:Nunito,sans-serif;font-weight:700">h1 · 30/1.1</span></div>
+        <div class="disp" style="font-size:20px;line-height:1.15">Pack your school bag <span class="cap" style="font-family:Nunito,sans-serif;font-weight:700">card title · 20/1.15</span></div>
+        <div style="font-size:17px;font-weight:700;line-height:1.4">You've done missions 7 days in a row! <span class="cap">body · Nunito 700 · 17/1.4</span></div>
+        <div style="font-size:15px;font-weight:700;color:var(--ink2)">Do 1 mission today to make it 8. <span class="cap">secondary · 15</span></div>
+        <div style="font-size:13px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)">Morning · label 13 +0.06em</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px;padding:20px;border-radius:12px;background:#F4F6FA;border:1px solid #E1E6EF">
+        <div class="ph" style="font-size:26px;line-height:1.15;letter-spacing:-.01em">Needs your approval <span class="cap">page title · Bricolage 700 · 26</span></div>
+        <div class="ph" style="font-size:22px;font-weight:600">Points earned per day <span class="cap">section · 22</span></div>
+        <div class="ph" style="font-size:16px;font-weight:600">Alex <span class="cap">card title · 16</span></div>
+        <div class="pf" style="font-size:15px;line-height:1.5">Approving awards the points instantly and plays the celebration on the child's next visit. <span class="cap">body · Instrument Sans 400 · 15/1.5</span></div>
+        <div class="pf" style="font-size:13px;color:#66718A">Submitted 7:42 AM · Morning · due 7:30 AM <span class="cap">meta · 13</span></div>
+        <div class="pf" style="font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#66718A;font-weight:600">Recent activity · table label 12</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <h2>Buttons &amp; pills <span>child targets ≥ 56 px · parent controls 36–40 px</span></h2>
+    <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap">
+      <span class="btn">Done!</span>
+      <span class="btn" style="background:var(--flame);box-shadow:0 4px 0 #D9502A">Try again</span>
+      <span class="btn" style="background:var(--berry);box-shadow:0 4px 0 #6D42D0">Ask for it!</span>
+      <span class="btn" style="background:var(--surface2);color:var(--muted);box-shadow:none;font-size:17px">50 more to go</span>
+      <span style="font-size:15px;font-weight:800;color:var(--sky)">Oops, not yet</span>
+      <span style="width:1px;height:40px;background:#E1E6EF"></span>
+      <span class="pbtn" style="background:#4C4DDC;color:#fff">Save task</span>
+      <span class="pbtn" style="background:#fff;border:1px solid #E1E6EF;color:#1A2233">Ask to retry</span>
+      <span class="pbtn" style="background:#1FA971;color:#fff">Approve</span>
+      <span class="pbtn" style="color:#B4373B;padding:0">Archive</span>
+    </div>
+    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+      <span class="pill" style="background:var(--sun-soft);color:var(--sun-ink)"><svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true"><path d="m12 2 3 6.5 7 .8-5.2 4.8 1.5 7L12 17.5 5.7 21l1.5-7L2 9.3l7-.8z" fill="#F5A623"></path></svg>+10</span>
+      <span class="pill" style="background:var(--surface2);color:var(--ink2)">From Wednesday</span>
+      <span class="pill" style="background:var(--berry-soft);color:var(--berry-ink)">Bonus</span>
+      <span class="pill" style="background:var(--leaf-soft);color:var(--leaf-ink)">Approved · +5</span>
+      <span class="pill" style="background:var(--sky-soft);color:var(--sky-deep)">Waiting for Mom</span>
+      <span class="pill" style="background:var(--berry-soft);color:var(--berry-ink)">Level 7 · Climber</span>
+      <span style="width:1px;height:26px;background:#E1E6EF"></span>
+      <span class="st" style="background:#DFF5EA;color:#146B47"><span style="width:6px;height:6px;border-radius:999px;background:#1FA971"></span>Active</span>
+      <span class="st" style="background:#FBF1D8;color:#7A5A0A"><span style="width:6px;height:6px;border-radius:999px;background:#E0A21B"></span>Paused</span>
+      <span class="st" style="background:#E6E6FB;color:#4C4DDC">Submitted</span>
+      <span class="st" style="background:#EEF1F7;color:#66718A">Archived</span>
+    </div>
+  </div>
+
+  <div class="sec">
+    <h2>TaskCard states <span>pending · submitted · approved · try again · not done (yesterday only)</span></h2>
+    <div style="display:flex;gap:14px">
+      <div class="card tc">
+        <div style="display:flex;align-items:center;gap:10px"><div class="tile">☀️</div><div><div class="t">Make your bed</div><div class="m">+10 · by 7:30 AM</div></div></div>
+        <div class="b">Done!</div>
+      </div>
+      <div class="card tc" style="background:var(--sky-soft);box-shadow:none">
+        <div style="display:flex;align-items:center;gap:10px"><div class="tile" style="background:#fff">📚</div><div><div class="t">Read 20 min</div><div class="m" style="color:var(--sky-deep)">Waiting for Mom</div></div></div>
+        <div style="font-size:13px;font-weight:800;color:var(--sky);text-align:center">Oops, not yet</div>
+      </div>
+      <div class="card tc" style="background:var(--leaf-soft);box-shadow:none;justify-content:center">
+        <div style="display:flex;align-items:center;gap:10px"><div class="tile" style="background:#fff">🦷</div><div style="flex:1"><div class="t" style="color:var(--leaf-ink)">Brush teeth</div><div class="m" style="color:var(--leaf-ink)">Approved · +5</div></div><div style="width:28px;height:28px;border-radius:999px;background:var(--leaf);display:flex;align-items:center;justify-content:center"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-10"></path></svg></div></div>
+      </div>
+      <div class="card tc" style="background:var(--peach);box-shadow:none">
+        <div style="display:flex;align-items:center;gap:10px"><div class="tile" style="background:#fff">🎹</div><div><div class="t">Practice piano</div><div class="m" style="color:var(--peach-ink)">Almost there!</div></div></div>
+        <div class="b" style="background:var(--flame);box-shadow:0 3px 0 #D9502A">Try again</div>
+      </div>
+      <div class="card tc" style="background:transparent;box-shadow:none;border:2px dashed var(--line);justify-content:center">
+        <div style="display:flex;align-items:center;gap:10px;opacity:.7"><div class="tile" style="background:var(--surface2)">🧸</div><div><div class="t" style="color:var(--muted)">Tidy your room</div><div class="m">Not done · Tomorrow's a new chance</div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <h2>Streak, golden &amp; progress <span>two streaks, explained in kid words; the ring is the 3-second read</span></h2>
+    <div style="display:flex;gap:16px;align-items:stretch">
+      <div class="card" style="width:250px;padding:16px;display:flex;flex-direction:column;gap:8px;background:linear-gradient(180deg,#FFF1EA,#fff)">
+        <div style="display:flex;align-items:center;gap:10px"><svg viewBox="0 0 24 24" width="44" height="44" aria-hidden="true"><path d="M12 2c1 4.5 6 6.5 6 12a6 6 0 0 1-12 0c0-2.2 1.2-3.8 1.2-3.8S8.5 13 10 13c-.3-4 2-6.5 2-11z" fill="#FF6B35"></path><path d="M12 14c.6 1.6 2 2.4 2 4a2 2 0 0 1-4 0c0-1.2 1.2-2.2 2-4z" fill="#FFD166"></path></svg><div><div class="disp" style="font-size:24px;line-height:1;color:var(--flame-ink)">7 DAY STREAK</div><div style="font-size:13px;font-weight:700;color:var(--ink2)">Missions 7 days in a row!</div></div></div>
+        <div style="font-size:13px;font-weight:800;color:var(--flame-ink);background:var(--flame-soft);padding:8px 10px;border-radius:12px">Do 1 mission today to make it 8</div>
+      </div>
+      <div class="card" style="width:250px;padding:16px;display:flex;flex-direction:column;gap:8px;background:linear-gradient(180deg,#FFF6DF,#fff)">
+        <div style="display:flex;align-items:center;gap:10px"><svg viewBox="0 0 24 24" width="44" height="44" aria-hidden="true"><path d="M3 8.5l4.5 4L12 5l4.5 7.5 4.5-4L19 19H5z" fill="#E3A008"></path><rect x="5" y="19" width="14" height="2.5" rx="1" fill="#C98A04"></rect></svg><div><div class="disp" style="font-size:24px;line-height:1;color:var(--sun-ink)">GOLDEN 4</div><div style="font-size:13px;font-weight:700;color:var(--ink2)">4 perfect days in a row!</div></div></div>
+        <div style="font-size:13px;font-weight:800;color:var(--sun-ink);background:var(--sun-soft);padding:8px 10px;border-radius:12px">Golden = every mission done</div>
+      </div>
+      <div class="card" style="width:250px;padding:16px;display:flex;flex-direction:column;gap:8px;justify-content:center">
+        <div class="disp" style="font-size:18px;line-height:1.15">Your 8-day streak ended.</div>
+        <div style="font-size:14px;font-weight:700;color:var(--ink2)">New adventure starts today 🚀</div>
+        <div style="height:40px;border-radius:12px;background:var(--sky);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Baloo 2',sans-serif;font-weight:800;font-size:16px;box-shadow:0 3px 0 var(--sky-deep)">Start again</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:18px;padding:0 10px">
+        <div style="position:relative;width:132px;height:132px"><svg viewBox="0 0 120 120" width="132" height="132"><circle cx="60" cy="60" r="52" fill="none" stroke="#EEF3FF" stroke-width="12"></circle><circle cx="60" cy="60" r="52" fill="none" stroke="#3F7BEA" stroke-width="12" stroke-linecap="round" stroke-dasharray="261 327" transform="rotate(-90 60 60)"></circle></svg><div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center"><div class="disp" style="font-size:36px;line-height:1">4<span style="font-size:20px;color:var(--muted)">/5</span></div><div style="font-size:12px;font-weight:800;color:var(--muted);letter-spacing:.04em">MISSIONS</div></div></div>
+        <div style="position:relative;width:64px;height:64px"><svg viewBox="0 0 120 120" width="64" height="64"><circle cx="60" cy="60" r="52" fill="none" stroke="#FFF1D6" stroke-width="14"></circle><circle cx="60" cy="60" r="52" fill="none" stroke="#E3A008" stroke-width="14" stroke-linecap="round" stroke-dasharray="327 327" transform="rotate(-90 60 60)"></circle></svg><div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path d="M3 8.5l4.5 4L12 5l4.5 7.5 4.5-4L19 19H5z" fill="#E3A008"></path></svg></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <h2>Badges, level &amp; rewards <span>unlocked · locked with progress · secret · new</span></h2>
+    <div style="display:flex;gap:28px;align-items:center">
+      <div class="col" style="align-items:center"><div class="hex" style="background:var(--flame-soft)"><svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true"><path d="M12 2c1 4.5 6 6.5 6 12a6 6 0 0 1-12 0c0-2.2 1.2-3.8 1.2-3.8S8.5 13 10 13c-.3-4 2-6.5 2-11z" fill="#FF6B35"></path></svg></div><span class="cap">unlocked</span></div>
+      <div class="col" style="align-items:center"><div style="position:relative"><div class="hex" style="background:var(--berry-soft);filter:grayscale(1);opacity:.45"><svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="#8B5CF6" stroke-width="2.2"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="12" r="5"></circle></svg></div><span class="pill" style="position:absolute;left:50%;bottom:-8px;transform:translateX(-50%);height:20px;font-size:11px;background:#fff;box-shadow:var(--shadow);color:var(--ink2)">84/100</span></div><span class="cap">locked · progress</span></div>
+      <div class="col" style="align-items:center"><div class="hex" style="background:var(--surface2)"><svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="#6B7A99" stroke-width="2.2" stroke-linecap="round"><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1 .9-1 1.7"></path><circle cx="12" cy="17" r="1" fill="#6B7A99"></circle></svg></div><span class="cap">secret</span></div>
+      <div class="col" style="align-items:center"><div style="position:relative"><div class="hex" style="background:var(--sun-soft);box-shadow:0 0 0 4px #fff,0 0 0 6px var(--sun)"><svg viewBox="0 0 24 24" width="30" height="30" aria-hidden="true"><path d="M3 8.5l4.5 4L12 5l4.5 7.5 4.5-4L19 19H5z" fill="#E3A008"></path></svg></div><span style="position:absolute;top:-10px;right:-16px;font-size:11px;font-weight:800;color:#fff;background:var(--flame);padding:2px 7px;border-radius:999px">NEW</span></div><span class="cap">new · sparkle on first view</span></div>
+      <span style="width:1px;height:64px;background:#E1E6EF"></span>
+      <div class="card" style="width:300px;padding:14px 16px;display:flex;flex-direction:column;gap:8px">
+        <div style="display:flex;justify-content:space-between;align-items:baseline"><span class="disp" style="font-size:18px">Level 7 · Climber</span><span style="font-size:12px;font-weight:800;color:var(--berry-ink)">180 XP to go</span></div>
+        <div style="height:12px;border-radius:999px;background:var(--berry-soft);overflow:hidden"><div style="width:49%;height:100%;background:var(--berry);border-radius:999px"></div></div>
+        <div style="font-size:12px;font-weight:700;color:var(--muted)">Next: Explorer's hat · Level 8 · Summit Hero</div>
+      </div>
+      <div class="card" style="width:160px;padding:12px;display:flex;flex-direction:column;gap:8px">
+        <div style="display:flex;justify-content:space-between"><div class="tile" style="width:40px;height:40px;font-size:22px">🍨</div><span class="pill" style="background:var(--sun-soft);color:var(--sun-ink)">100</span></div>
+        <div class="disp" style="font-size:15px">Choose dessert</div>
+        <div style="height:36px;border-radius:12px;background:var(--sky);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Baloo 2',sans-serif;font-weight:800;font-size:14px;box-shadow:0 3px 0 var(--sky-deep)">Ask for it!</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <h2>Parent components <span>ParentChildCard · ApprovalCard row · rule chips</span></h2>
+    <div style="display:flex;gap:16px;align-items:flex-start">
+      <div style="width:330px;background:#fff;border:1px solid #E1E6EF;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:14px" class="pf">
+        <div style="display:flex;align-items:center;gap:12px"><svg viewBox="0 0 64 64" width="40" height="40" aria-hidden="true"><circle cx="32" cy="32" r="32" fill="#DCE8FF"></circle><path d="M14 26 19 9l12 11zM50 26 45 9 33 20z" fill="#E9782E"></path><circle cx="32" cy="36" r="18" fill="#F59A4A"></circle><ellipse cx="32" cy="43" rx="10" ry="7" fill="#FFF3E6"></ellipse><circle cx="25" cy="34" r="2.6" fill="#1F2A44"></circle><circle cx="39" cy="34" r="2.6" fill="#1F2A44"></circle></svg><div><div class="ph" style="font-size:16px;font-weight:600">Alex</div><div style="font-size:12.5px;color:#66718A">Level 7 · Climber · 4/5 today</div></div></div>
+        <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 8px;font-size:12px;color:#66718A">
+          <div style="display:flex;align-items:center;gap:8px"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 2c1 4.5 6 6.5 6 12a6 6 0 0 1-12 0c0-2.2 1.2-3.8 1.2-3.8S8.5 13 10 13c-.3-4 2-6.5 2-11z" fill="#FF6B35"></path></svg><div><div class="ph" style="font-size:18px">7</div>day streak</div></div>
+          <div style="display:flex;align-items:center;gap:8px"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M3 8.5l4.5 4L12 5l4.5 7.5 4.5-4L19 19H5z" fill="#E3A008"></path></svg><div><div class="ph" style="font-size:18px">4</div>golden streak</div></div>
+          <div style="display:flex;align-items:center;gap:8px"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="m12 2 3 6.5 7 .8-5.2 4.8 1.5 7L12 17.5 5.7 21l1.5-7L2 9.3l7-.8z" fill="#F5A623"></path></svg><div><div class="ph" style="font-size:18px">325</div>points this week</div></div>
+          <div style="display:flex;align-items:center;gap:8px"><div style="width:20px;height:20px;border-radius:999px;background:conic-gradient(#1FA971 0 92%,#E1E6EF 92% 100%)"></div><div><div class="ph" style="font-size:18px">92%</div>completion</div></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;padding-top:10px;border-top:1px solid #E1E6EF;font-size:13px"><span style="color:#B7830F;font-weight:600">2 waiting for approval</span><span style="color:#4C4DDC;font-weight:600">Review</span></div>
+      </div>
+      <div style="flex:1;background:#fff;border:1px solid #E1E6EF;border-radius:12px" class="pf">
+        <div style="display:grid;grid-template-columns:44px minmax(0,1fr) 70px auto;gap:14px;align-items:center;padding:12px 16px">
+          <div style="width:44px;height:44px;border-radius:12px;background:#EEF1F7;display:flex;align-items:center;justify-content:center;font-size:24px">🎒</div>
+          <div><div style="font-weight:600;font-size:15px">Pack your school bag</div><div style="font-size:12.5px;color:#66718A">Alex · Submitted 7:42 AM · Morning</div></div>
+          <div style="font-weight:700;display:flex;align-items:center;gap:5px;color:#3B4559"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="m12 2 3 6.5 7 .8-5.2 4.8 1.5 7L12 17.5 5.7 21l1.5-7L2 9.3l7-.8z" fill="#F5A623"></path></svg>+10</div>
+          <div style="display:flex;gap:8px"><span class="pbtn" style="height:32px;font-size:13px;background:#fff;border:1px solid #E1E6EF;color:#1A2233">Ask to retry</span><span class="pbtn" style="height:32px;font-size:13px;background:#1FA971;color:#fff">Approve</span></div>
+        </div>
+        <div style="display:flex;gap:8px;padding:12px 16px;border-top:1px solid #E1E6EF;flex-wrap:wrap">
+          <span class="st" style="background:#EEF1F7;color:#3B4559;border-radius:6px"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h6l-1 8 9-12h-6z"></path></svg>Auto-approve</span>
+          <span class="st" style="background:#EEF1F7;color:#3B4559;border-radius:6px"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-10"></path></svg>Parent approves</span>
+          <span class="st" style="background:#EEF1F7;color:#3B4559;border-radius:6px">Expires</span>
+          <span class="st" style="background:#EEF1F7;color:#3B4559;border-radius:6px">Rolls over</span>
+          <span class="st" style="background:#EEF1F7;color:#3B4559;border-radius:6px">Stays until done</span>
+          <span class="st" style="background:#EEF1F7;color:#3B4559;border-radius:6px">Bonus</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</x-dc>
+</body>
+</html>

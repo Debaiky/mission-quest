@@ -1,0 +1,148 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Instrument+Sans:wght@400;500;600;700&display=swap">
+  <style>
+    :root{--bg:#F4F6FA;--surface:#FFFFFF;--surface2:#EEF1F7;--ink:#1A2233;--ink2:#3B4559;--muted:#66718A;--line:#E1E6EF;--primary:#4C4DDC;--primary-soft:#E6E6FB;--success:#1FA971;--sun:#F5A623}
+    body{margin:0;background:var(--bg);font-family:"Instrument Sans",system-ui,"Segoe UI",sans-serif;color:var(--ink);font-size:14px;-webkit-font-smoothing:antialiased}
+    a{color:var(--primary)} a:hover{color:#3A3BB8}
+    .app{width:1440px;height:900px;overflow:hidden;display:grid;grid-template-columns:240px minmax(0,1fr);background:var(--bg)}
+    .side{background:var(--surface);border-right:1px solid var(--line);display:flex;flex-direction:column;padding:22px 14px;gap:4px}
+    .side a{display:flex;align-items:center;gap:10px;height:40px;padding:0 12px;border-radius:8px;color:var(--ink2);font-weight:500;text-decoration:none;font-size:14px}
+    .side a.on{background:var(--primary-soft);color:var(--primary);font-weight:600}
+    .side svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+    .wm{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-weight:700;font-size:20px;letter-spacing:-.01em;padding:0 12px 18px;display:flex;align-items:center;gap:10px}
+    .h1{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-weight:700;font-size:26px;letter-spacing:-.01em;line-height:1.1}
+    .h3{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-weight:600;font-size:16px}
+    .card{background:var(--surface);border:1px solid var(--line);border-radius:12px}
+    .badge{display:inline-flex;align-items:center;justify-content:center;min-width:20px;height:20px;padding:0 6px;border-radius:999px;background:var(--primary);color:#fff;font-size:12px;font-weight:700}
+    .chip{height:32px;padding:0 12px;border-radius:999px;border:1px solid var(--line);display:inline-flex;align-items:center;gap:7px;font-size:13px;color:var(--ink2);background:var(--surface);font-weight:500}
+    .chip.on{background:var(--primary-soft);border-color:var(--primary-soft);color:var(--primary);font-weight:600}
+    .seg{display:flex;padding:3px;border-radius:8px;background:var(--surface2);gap:2px}
+    .seg span{height:28px;padding:0 12px;display:flex;align-items:center;border-radius:6px;font-weight:600;font-size:13px;color:var(--muted)}
+    .seg span.on{background:var(--surface);color:var(--ink);box-shadow:0 1px 2px rgba(26,34,51,.08)}
+    .tile{display:flex;flex-direction:column;gap:4px;padding:14px 16px}
+    .tile .k{font-size:12.5px;color:var(--muted);font-weight:500}
+    .tile .v{font-family:"Instrument Sans",system-ui,sans-serif;font-weight:600;font-size:26px;line-height:1.1}
+    .tile .d{font-size:12px;font-weight:600}
+    .lg{display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--ink2)}
+    .lg i{width:10px;height:10px;border-radius:3px;display:inline-block}
+    .ax{font-family:"Instrument Sans",system-ui,sans-serif;font-size:11.5px;fill:#66718A}
+    .vl{font-family:"Instrument Sans",system-ui,sans-serif;font-size:11.5px;fill:#3B4559;font-weight:600}
+    table{border-collapse:collapse;width:100%}
+    th{font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);font-weight:600}
+    td{padding:9px 12px;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums;font-size:13px}
+    tr:last-child td{border-bottom:0}
+  </style>
+</helmet>
+<div class="app">
+  <aside class="side">
+    <div class="wm"><span style="width:28px;height:28px;border-radius:8px;background:var(--primary);display:inline-flex;align-items:center;justify-content:center"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"></circle><circle cx="12" cy="12" r="3"></circle></svg></span>Mission Quest</div>
+    <a href="#"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"></rect><rect x="14" y="3" width="7" height="7" rx="1.5"></rect><rect x="3" y="14" width="7" height="7" rx="1.5"></rect><rect x="14" y="14" width="7" height="7" rx="1.5"></rect></svg>Dashboard</a>
+    <a href="#"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"></circle><path d="M2.5 20c0-4 3-6 6.5-6s6.5 2 6.5 6"></path><circle cx="17" cy="9" r="2.5"></circle><path d="M17 14c2.8 0 4.5 1.8 4.5 5"></path></svg>Children</a>
+    <a href="#"><svg viewBox="0 0 24 24"><path d="M9 6h12M9 12h12M9 18h12"></path><path d="m3 6 1.5 1.5L7 5M3 12l1.5 1.5L7 11M3 18l1.5 1.5L7 17"></path></svg>Tasks</a>
+    <a href="#" style="justify-content:space-between"><span style="display:flex;align-items:center;gap:10px"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="m8.5 12 2.5 2.5 5-5"></path></svg>Approvals</span><span class="badge">4</span></a>
+    <a href="#"><svg viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="4" rx="1"></rect><path d="M12 8v13M5 12v9h14v-9"></path><path d="M12 8c-2-4-7-3-6-1s5 1 6 1zm0 0c2-4 7-3 6-1s-5 1-6 1z"></path></svg>Rewards</a>
+    <a href="#" class="on"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"></path></svg>Analytics</a>
+    <a href="#"><svg viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10 21a2 2 0 0 0 4 0"></path></svg>Notifications</a>
+    <a href="#"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"></path></svg>Settings</a>
+    <div style="flex:1"></div>
+    <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-top:1px solid var(--line)">
+      <div style="width:32px;height:32px;border-radius:999px;background:var(--primary-soft);color:var(--primary);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px">DP</div>
+      <div style="display:flex;flex-direction:column"><div style="font-weight:600;font-size:13.5px">Demo Parent</div><div style="font-size:12px;color:var(--muted)">Demo Family · Europe/London</div></div>
+    </div>
+  </aside>
+
+  <main style="display:flex;flex-direction:column;min-width:0">
+    <header style="height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 32px;border-bottom:1px solid var(--line);background:var(--surface)">
+      <div style="display:flex;flex-direction:column;gap:2px"><div class="h1">Analytics</div><div style="font-size:13px;color:var(--muted)">Mon 1 – Sun 7 September · every chart has a table view</div></div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <span class="chip on"><i style="width:10px;height:10px;border-radius:3px;background:#3F7BEA;display:inline-block"></i>Alex</span>
+        <span class="chip on"><i style="width:10px;height:10px;border-radius:3px;background:#F29A1F;display:inline-block"></i>Maya</span>
+        <span class="chip on"><i style="width:10px;height:10px;border-radius:3px;background:#2DB07A;display:inline-block"></i>Leo</span>
+        <span style="width:1px;height:24px;background:var(--line)"></span>
+        <div class="seg"><span class="on">This week</span><span>Last 4 weeks</span><span>This month</span></div>
+      </div>
+    </header>
+
+    <div style="display:flex;flex-direction:column;gap:16px;padding:20px 32px;min-height:0">
+
+      <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px">
+        <div class="card tile"><span class="k">Family points this week</span><span class="v">745</span><span class="d" style="color:var(--success)">▲ 12% vs last week</span></div>
+        <div class="card tile"><span class="k">Completion</span><span class="v">88%</span><span class="d" style="color:var(--success)">▲ 4 pts vs last week</span></div>
+        <div class="card tile"><span class="k">Golden days</span><span class="v">9 <span style="font-size:14px;color:var(--muted);font-weight:500">of 21</span></span><span class="d" style="color:var(--muted)">Maya 4 · Alex 3 · Leo 2</span></div>
+        <div class="card tile"><span class="k">Missions missed</span><span class="v">8</span><span class="d" style="color:var(--muted)">4 rolled over, 4 expired</span></div>
+      </div>
+
+      <div class="card" style="padding:16px 20px 12px;display:flex;flex-direction:column;gap:10px">
+        <div style="display:flex;align-items:center;justify-content:space-between">
+          <div style="display:flex;flex-direction:column;gap:2px"><span class="h3">Points earned per day</span><span style="font-size:12.5px;color:var(--muted)">Approved missions and bonuses, by child</span></div>
+          <div style="display:flex;align-items:center;gap:16px">
+            <span class="lg"><i style="background:#3F7BEA"></i>Alex</span><span class="lg"><i style="background:#F29A1F"></i>Maya</span><span class="lg"><i style="background:#2DB07A"></i>Leo</span>
+            <span class="chip" style="height:28px;font-size:12.5px">Table</span>
+          </div>
+        </div>
+        <svg viewBox="0 0 1080 236" width="1080" height="236" role="img" aria-label="Points per day per child, Monday to Sunday. Alex peaks Saturday at 80.">
+          <g stroke="#EEF1F7" stroke-width="1"><line x1="40" y1="24" x2="1060" y2="24"></line><line x1="40" y1="68" x2="1060" y2="68"></line><line x1="40" y1="112" x2="1060" y2="112"></line><line x1="40" y1="156" x2="1060" y2="156"></line></g>
+          <line x1="40" y1="200" x2="1060" y2="200" stroke="#E1E6EF" stroke-width="1"></line>
+          <g class="ax" text-anchor="end"><text x="32" y="28">80</text><text x="32" y="72">60</text><text x="32" y="116">40</text><text x="32" y="160">20</text><text x="32" y="204">0</text></g>
+
+          <g><rect x="70" y="134" width="24" height="66" rx="0" fill="#3F7BEA"></rect><rect x="70" y="134" width="24" height="8" rx="4" fill="#3F7BEA"></rect><rect x="96" y="145" width="24" height="55" fill="#F29A1F"></rect><rect x="96" y="145" width="24" height="8" rx="4" fill="#F29A1F"></rect><rect x="122" y="156" width="24" height="44" fill="#2DB07A"></rect><rect x="122" y="156" width="24" height="8" rx="4" fill="#2DB07A"></rect><text x="108" y="222" class="ax" text-anchor="middle">Mon</text></g>
+          <g><rect x="215" y="101" width="24" height="99" fill="#3F7BEA"></rect><rect x="215" y="101" width="24" height="8" rx="4" fill="#3F7BEA"></rect><rect x="241" y="112" width="24" height="88" fill="#F29A1F"></rect><rect x="241" y="112" width="24" height="8" rx="4" fill="#F29A1F"></rect><rect x="267" y="145" width="24" height="55" fill="#2DB07A"></rect><rect x="267" y="145" width="24" height="8" rx="4" fill="#2DB07A"></rect><text x="253" y="222" class="ax" text-anchor="middle">Tue</text></g>
+          <g><rect x="360" y="90" width="24" height="110" fill="#3F7BEA"></rect><rect x="360" y="90" width="24" height="8" rx="4" fill="#3F7BEA"></rect><rect x="386" y="123" width="24" height="77" fill="#F29A1F"></rect><rect x="386" y="123" width="24" height="8" rx="4" fill="#F29A1F"></rect><rect x="412" y="134" width="24" height="66" fill="#2DB07A"></rect><rect x="412" y="134" width="24" height="8" rx="4" fill="#2DB07A"></rect><text x="398" y="222" class="ax" text-anchor="middle">Wed</text></g>
+          <g><rect x="505" y="156" width="24" height="44" fill="#3F7BEA"></rect><rect x="505" y="156" width="24" height="8" rx="4" fill="#3F7BEA"></rect><rect x="531" y="134" width="24" height="66" fill="#F29A1F"></rect><rect x="531" y="134" width="24" height="8" rx="4" fill="#F29A1F"></rect><rect x="557" y="167" width="24" height="33" fill="#2DB07A"></rect><rect x="557" y="167" width="24" height="8" rx="4" fill="#2DB07A"></rect><text x="543" y="222" class="ax" text-anchor="middle">Thu</text></g>
+          <g><rect x="650" y="68" width="24" height="132" fill="#3F7BEA"></rect><rect x="650" y="68" width="24" height="8" rx="4" fill="#3F7BEA"></rect><rect x="676" y="101" width="24" height="99" fill="#F29A1F"></rect><rect x="676" y="101" width="24" height="8" rx="4" fill="#F29A1F"></rect><rect x="702" y="156" width="24" height="44" fill="#2DB07A"></rect><rect x="702" y="156" width="24" height="8" rx="4" fill="#2DB07A"></rect><text x="688" y="222" class="ax" text-anchor="middle">Fri</text></g>
+          <g><rect x="795" y="24" width="24" height="176" fill="#3F7BEA"></rect><rect x="795" y="24" width="24" height="8" rx="4" fill="#3F7BEA"></rect><text x="807" y="16" class="vl" text-anchor="middle">80</text><rect x="821" y="79" width="24" height="121" fill="#F29A1F"></rect><rect x="821" y="79" width="24" height="8" rx="4" fill="#F29A1F"></rect><rect x="847" y="112" width="24" height="88" fill="#2DB07A"></rect><rect x="847" y="112" width="24" height="8" rx="4" fill="#2DB07A"></rect><text x="833" y="222" class="ax" text-anchor="middle">Sat</text></g>
+          <g><rect x="940" y="112" width="24" height="88" fill="#3F7BEA"></rect><rect x="940" y="112" width="24" height="8" rx="4" fill="#3F7BEA"></rect><rect x="966" y="134" width="24" height="66" fill="#F29A1F"></rect><rect x="966" y="134" width="24" height="8" rx="4" fill="#F29A1F"></rect><rect x="992" y="178" width="24" height="22" fill="#2DB07A"></rect><rect x="992" y="178" width="24" height="8" rx="4" fill="#2DB07A"></rect><text x="978" y="222" class="ax" text-anchor="middle">Sun · today</text></g>
+        </svg>
+      </div>
+
+      <div style="display:grid;grid-template-columns:minmax(0,1fr) 420px;gap:16px">
+        <div class="card" style="padding:16px 20px 12px;display:flex;flex-direction:column;gap:10px">
+          <div style="display:flex;align-items:center;justify-content:space-between">
+            <div style="display:flex;flex-direction:column;gap:2px"><span class="h3">Daily completion</span><span style="font-size:12.5px;color:var(--muted)">Share of assigned missions done each day</span></div>
+            <div style="display:flex;align-items:center;gap:16px"><span class="lg"><i style="background:#3F7BEA"></i>Alex</span><span class="lg"><i style="background:#F29A1F"></i>Maya</span><span class="lg"><i style="background:#2DB07A"></i>Leo</span></div>
+          </div>
+          <svg viewBox="0 0 640 200" width="640" height="200" role="img" aria-label="Daily completion percentage per child. Maya finished this week at 100 percent, Alex at 75, Leo at 50.">
+            <g stroke="#EEF1F7" stroke-width="1"><line x1="40" y1="20" x2="560" y2="20"></line><line x1="40" y1="60" x2="560" y2="60"></line><line x1="40" y1="100" x2="560" y2="100"></line><line x1="40" y1="140" x2="560" y2="140"></line></g>
+            <line x1="40" y1="180" x2="560" y2="180" stroke="#E1E6EF" stroke-width="1"></line>
+            <g class="ax" text-anchor="end"><text x="32" y="24">100%</text><text x="32" y="104">50%</text><text x="32" y="184">0</text></g>
+            <polyline points="40,84 127,60 213,20 300,100 387,20 473,20 560,100" fill="none" stroke="#2DB07A" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"></polyline>
+            <polyline points="40,52 127,20 213,20 300,20 387,52 473,20 560,20" fill="none" stroke="#F29A1F" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"></polyline>
+            <polyline points="40,20 127,52 213,20 300,84 387,20 473,20 560,60" fill="none" stroke="#3F7BEA" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"></polyline>
+            <g stroke="#FFFFFF" stroke-width="2">
+              <circle cx="560" cy="100" r="4.5" fill="#2DB07A"></circle><circle cx="560" cy="20" r="4.5" fill="#F29A1F"></circle><circle cx="560" cy="60" r="4.5" fill="#3F7BEA"></circle>
+              <circle cx="40" cy="84" r="4.5" fill="#2DB07A"></circle><circle cx="40" cy="52" r="4.5" fill="#F29A1F"></circle><circle cx="40" cy="20" r="4.5" fill="#3F7BEA"></circle>
+            </g>
+            <g class="vl"><text x="572" y="24">Maya 100%</text><text x="572" y="64">Alex 75%</text><text x="572" y="104">Leo 50%</text></g>
+            <g class="ax" text-anchor="middle"><text x="40" y="198">Mon</text><text x="127" y="198">Tue</text><text x="213" y="198">Wed</text><text x="300" y="198">Thu</text><text x="387" y="198">Fri</text><text x="473" y="198">Sat</text><text x="560" y="198">Sun</text></g>
+          </svg>
+        </div>
+
+        <div class="card" style="padding:16px 20px;display:flex;flex-direction:column;gap:10px">
+          <div style="display:flex;flex-direction:column;gap:2px"><span class="h3">Most missed this week</span><span style="font-size:12.5px;color:var(--muted)">Where a reminder or a smaller mission might help</span></div>
+          <table>
+            <thead><tr><th>Mission</th><th>Child</th><th style="text-align:right">Missed</th></tr></thead>
+            <tbody>
+              <tr><td>📚 Read for 20 minutes</td><td>Leo</td><td style="text-align:right;font-weight:600">3 of 4</td></tr>
+              <tr><td>🧸 Tidy your room</td><td>Alex</td><td style="text-align:right;font-weight:600">2 of 2</td></tr>
+              <tr><td>🎹 Practice piano</td><td>Maya</td><td style="text-align:right;font-weight:600">1 of 7</td></tr>
+              <tr><td>🐕 Feed the dog</td><td>Leo</td><td style="text-align:right;font-weight:600">1 of 7</td></tr>
+              <tr><td>🎒 Pack your school bag</td><td>Alex</td><td style="text-align:right;font-weight:600">1 of 5</td></tr>
+            </tbody>
+          </table>
+          <a href="#" style="font-size:13px;font-weight:600;text-decoration:none">Send Leo a reading reminder →</a>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+</x-dc>
+</body>
+</html>

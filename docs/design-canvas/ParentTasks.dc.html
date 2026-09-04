@@ -1,0 +1,175 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Instrument+Sans:wght@400;500;600;700&display=swap">
+  <style>
+    :root{--bg:#F4F6FA;--surface:#FFFFFF;--surface2:#EEF1F7;--ink:#1A2233;--ink2:#3B4559;--muted:#66718A;--line:#E1E6EF;--primary:#4C4DDC;--primary-soft:#E6E6FB;--success:#1FA971;--success-soft:#DFF5EA;--warning-soft:#FBF1D8;--sun:#F5A623}
+    body{margin:0;background:var(--bg);font-family:"Instrument Sans",system-ui,"Segoe UI",sans-serif;color:var(--ink);font-size:14px;-webkit-font-smoothing:antialiased}
+    a{color:var(--primary)} a:hover{color:#3A3BB8}
+    .app{width:1440px;height:900px;overflow:hidden;display:grid;grid-template-columns:240px minmax(0,1fr);background:var(--bg)}
+    .side{background:var(--surface);border-right:1px solid var(--line);display:flex;flex-direction:column;padding:22px 14px;gap:4px}
+    .side a{display:flex;align-items:center;gap:10px;height:40px;padding:0 12px;border-radius:8px;color:var(--ink2);font-weight:500;text-decoration:none;font-size:14px}
+    .side a.on{background:var(--primary-soft);color:var(--primary);font-weight:600}
+    .side svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+    .wm{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-weight:700;font-size:20px;letter-spacing:-.01em;padding:0 12px 18px;display:flex;align-items:center;gap:10px}
+    .h1{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-weight:700;font-size:26px;letter-spacing:-.01em;line-height:1.1}
+    .card{background:var(--surface);border:1px solid var(--line);border-radius:12px}
+    .btn{height:36px;padding:0 14px;border-radius:8px;display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:14px;white-space:nowrap}
+    .btn.p{background:var(--primary);color:#fff}
+    .btn.s{background:var(--surface);border:1px solid var(--line);color:var(--ink)}
+    .badge{display:inline-flex;align-items:center;justify-content:center;min-width:20px;height:20px;padding:0 6px;border-radius:999px;background:var(--primary);color:#fff;font-size:12px;font-weight:700}
+    .chip{height:32px;padding:0 12px;border-radius:999px;border:1px solid var(--line);display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--ink2);background:var(--surface)}
+    .chip.on{background:var(--primary-soft);border-color:var(--primary-soft);color:var(--primary);font-weight:600}
+    table{border-collapse:collapse;width:100%}
+    th{font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);text-align:left;padding:10px 14px;border-bottom:1px solid var(--line);background:var(--surface2);font-weight:600;white-space:nowrap}
+    td{padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:middle;font-variant-numeric:tabular-nums;font-size:13.5px}
+    tr:last-child td{border-bottom:0}
+    tr.paused td{color:var(--muted)}
+    .em{width:34px;height:34px;border-radius:9px;background:var(--surface2);display:inline-flex;align-items:center;justify-content:center;font-size:19px;flex:none}
+    .av{width:26px;height:26px;border-radius:999px;border:2px solid #fff;margin-left:-8px}
+    .av:first-child{margin-left:0}
+    .st{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:600;padding:3px 9px;border-radius:999px}
+    .rule{display:inline-flex;align-items:center;gap:5px;font-size:12.5px;color:var(--ink2);padding:3px 8px;border-radius:6px;background:var(--surface2)}
+    .rule svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  </style>
+</helmet>
+<div class="app">
+  <aside class="side">
+    <div class="wm"><span style="width:28px;height:28px;border-radius:8px;background:var(--primary);display:inline-flex;align-items:center;justify-content:center"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"></circle><circle cx="12" cy="12" r="3"></circle></svg></span>Mission Quest</div>
+    <a href="#"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"></rect><rect x="14" y="3" width="7" height="7" rx="1.5"></rect><rect x="3" y="14" width="7" height="7" rx="1.5"></rect><rect x="14" y="14" width="7" height="7" rx="1.5"></rect></svg>Dashboard</a>
+    <a href="#"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"></circle><path d="M2.5 20c0-4 3-6 6.5-6s6.5 2 6.5 6"></path><circle cx="17" cy="9" r="2.5"></circle><path d="M17 14c2.8 0 4.5 1.8 4.5 5"></path></svg>Children</a>
+    <a href="#" class="on"><svg viewBox="0 0 24 24"><path d="M9 6h12M9 12h12M9 18h12"></path><path d="m3 6 1.5 1.5L7 5M3 12l1.5 1.5L7 11M3 18l1.5 1.5L7 17"></path></svg>Tasks</a>
+    <a href="#" style="justify-content:space-between"><span style="display:flex;align-items:center;gap:10px"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="m8.5 12 2.5 2.5 5-5"></path></svg>Approvals</span><span class="badge">4</span></a>
+    <a href="#"><svg viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="4" rx="1"></rect><path d="M12 8v13M5 12v9h14v-9"></path><path d="M12 8c-2-4-7-3-6-1s5 1 6 1zm0 0c2-4 7-3 6-1s-5 1-6 1z"></path></svg>Rewards</a>
+    <a href="#"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"></path></svg>Analytics</a>
+    <a href="#"><svg viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10 21a2 2 0 0 0 4 0"></path></svg>Notifications</a>
+    <a href="#"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"></path></svg>Settings</a>
+    <div style="flex:1"></div>
+    <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-top:1px solid var(--line)">
+      <div style="width:32px;height:32px;border-radius:999px;background:var(--primary-soft);color:var(--primary);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px">DP</div>
+      <div style="display:flex;flex-direction:column"><div style="font-weight:600;font-size:13.5px">Demo Parent</div><div style="font-size:12px;color:var(--muted)">Demo Family · Europe/London</div></div>
+    </div>
+  </aside>
+
+  <main style="display:flex;flex-direction:column;min-width:0">
+    <header style="height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 32px;border-bottom:1px solid var(--line);background:var(--surface)">
+      <div style="display:flex;flex-direction:column;gap:2px">
+        <div class="h1">Tasks</div>
+        <div style="font-size:13px;color:var(--muted)">12 active · 1 paused · 3 archived</div>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center">
+        <span class="btn s"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>Quick-add for today</span>
+        <span class="btn p"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>New task</span>
+      </div>
+    </header>
+
+    <div style="display:flex;flex-direction:column;gap:16px;padding:24px 32px;min-height:0">
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+        <div style="display:flex;align-items:center;gap:8px;height:36px;padding:0 12px;border:1px solid var(--line);border-radius:8px;background:var(--surface);width:260px;color:var(--muted)"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg>Search tasks</div>
+        <span class="chip on">All children</span><span class="chip">Alex</span><span class="chip">Maya</span><span class="chip">Leo</span>
+        <span style="width:1px;height:24px;background:var(--line)"></span>
+        <span class="chip">Category <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"></path></svg></span>
+        <span class="chip">Schedule <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"></path></svg></span>
+        <span class="chip on">Active</span><span class="chip on">Paused</span><span class="chip">Archived</span>
+      </div>
+
+      <div class="card" style="overflow:hidden">
+        <table>
+          <thead><tr><th style="width:36%">Task</th><th>Children</th><th>Points</th><th>Schedule</th><th>Rules</th><th>Status</th><th style="width:40px"></th></tr></thead>
+          <tbody>
+            <tr>
+              <td><div style="display:flex;align-items:center;gap:10px"><span class="em">☀️</span><div style="display:flex;flex-direction:column"><span style="font-weight:600">Make your bed</span><span style="font-size:12px;color:var(--muted)">Morning · Bedroom</span></div></div></td>
+              <td><div style="display:flex"><span class="av" style="background:#F59A4A"></span><span class="av" style="background:#A9714B"></span><span class="av" style="background:#8E9BB5"></span></div></td>
+              <td style="font-weight:600">10</td>
+              <td>Every day · by 7:30 AM</td>
+              <td><div style="display:flex;gap:6px"><span class="rule"><svg viewBox="0 0 24 24"><path d="M13 2 4 14h6l-1 8 9-12h-6z"></path></svg>Auto</span><span class="rule"><svg viewBox="0 0 24 24"><path d="M3 12h13M12 6l6 6-6 6"></path></svg>Rolls over</span></div></td>
+              <td><span class="st" style="background:var(--success-soft);color:#146B47"><span style="width:6px;height:6px;border-radius:999px;background:#1FA971"></span>Active</span></td>
+              <td style="color:var(--muted);text-align:center">···</td>
+            </tr>
+            <tr>
+              <td><div style="display:flex;align-items:center;gap:10px"><span class="em">🦷</span><div style="display:flex;flex-direction:column"><span style="font-weight:600">Brush your teeth</span><span style="font-size:12px;color:var(--muted)">Morning · Personal care</span></div></div></td>
+              <td><div style="display:flex"><span class="av" style="background:#F59A4A"></span><span class="av" style="background:#A9714B"></span><span class="av" style="background:#8E9BB5"></span></div></td>
+              <td style="font-weight:600">5</td>
+              <td>Every day</td>
+              <td><div style="display:flex;gap:6px"><span class="rule"><svg viewBox="0 0 24 24"><path d="M13 2 4 14h6l-1 8 9-12h-6z"></path></svg>Auto</span><span class="rule"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>Expires</span></div></td>
+              <td><span class="st" style="background:var(--success-soft);color:#146B47"><span style="width:6px;height:6px;border-radius:999px;background:#1FA971"></span>Active</span></td>
+              <td style="color:var(--muted);text-align:center">···</td>
+            </tr>
+            <tr>
+              <td><div style="display:flex;align-items:center;gap:10px"><span class="em">🎒</span><div style="display:flex;flex-direction:column"><span style="font-weight:600">Pack your school bag</span><span style="font-size:12px;color:var(--muted)">Morning · School</span></div></div></td>
+              <td><div style="display:flex"><span class="av" style="background:#F59A4A"></span><span class="av" style="background:#A9714B"></span></div></td>
+              <td style="font-weight:600">10</td>
+              <td>Mon–Fri · by 7:30 AM · until 18 Dec</td>
+              <td><div style="display:flex;gap:6px"><span class="rule"><svg viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"></path></svg>Parent</span><span class="rule"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>Expires</span></div></td>
+              <td><span class="st" style="background:var(--success-soft);color:#146B47"><span style="width:6px;height:6px;border-radius:999px;background:#1FA971"></span>Active</span></td>
+              <td style="color:var(--muted);text-align:center">···</td>
+            </tr>
+            <tr style="background:var(--primary-soft)">
+              <td><div style="display:flex;align-items:center;gap:10px"><span class="em" style="background:#fff">📚</span><div style="display:flex;flex-direction:column"><span style="font-weight:600">Read for 20 minutes</span><span style="font-size:12px;color:var(--muted)">Evening · Reading</span></div></div></td>
+              <td><div style="display:flex"><span class="av" style="background:#F59A4A"></span><span class="av" style="background:#A9714B"></span><span class="av" style="background:#8E9BB5"></span></div></td>
+              <td style="font-weight:600">15</td>
+              <td>Mon–Thu · by 7:00 PM</td>
+              <td><div style="display:flex;gap:6px"><span class="rule" style="background:#fff"><svg viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"></path></svg>Parent</span><span class="rule" style="background:#fff"><svg viewBox="0 0 24 24"><path d="M3 12h13M12 6l6 6-6 6"></path></svg>Rolls over</span></div></td>
+              <td><span class="st" style="background:var(--success-soft);color:#146B47"><span style="width:6px;height:6px;border-radius:999px;background:#1FA971"></span>Active</span></td>
+              <td style="color:var(--primary);text-align:center;font-weight:700">···</td>
+            </tr>
+            <tr>
+              <td><div style="display:flex;align-items:center;gap:10px"><span class="em">🧸</span><div style="display:flex;flex-direction:column"><span style="font-weight:600">Tidy your room</span><span style="font-size:12px;color:var(--muted)">Afternoon · Bedroom</span></div></div></td>
+              <td><div style="display:flex"><span class="av" style="background:#F59A4A"></span><span class="av" style="background:#A9714B"></span><span class="av" style="background:#8E9BB5"></span></div></td>
+              <td style="font-weight:600">20</td>
+              <td>Wed &amp; Sat</td>
+              <td><div style="display:flex;gap:6px"><span class="rule"><svg viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"></path></svg>Parent</span><span class="rule"><svg viewBox="0 0 24 24"><path d="M12 3v18M5 12h14"></path></svg>Stays until done</span></div></td>
+              <td><span class="st" style="background:var(--success-soft);color:#146B47"><span style="width:6px;height:6px;border-radius:999px;background:#1FA971"></span>Active</span></td>
+              <td style="color:var(--muted);text-align:center">···</td>
+            </tr>
+            <tr>
+              <td><div style="display:flex;align-items:center;gap:10px"><span class="em">🐕</span><div style="display:flex;flex-direction:column"><span style="font-weight:600">Feed the dog</span><span style="font-size:12px;color:var(--muted)">Anytime · Helping at home</span></div></div></td>
+              <td><div style="display:flex"><span class="av" style="background:#8E9BB5"></span></div></td>
+              <td style="font-weight:600">10</td>
+              <td>Every day · by 5:00 PM</td>
+              <td><div style="display:flex;gap:6px"><span class="rule"><svg viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"></path></svg>Parent</span><span class="rule"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>Expires</span></div></td>
+              <td><span class="st" style="background:var(--success-soft);color:#146B47"><span style="width:6px;height:6px;border-radius:999px;background:#1FA971"></span>Active</span></td>
+              <td style="color:var(--muted);text-align:center">···</td>
+            </tr>
+            <tr>
+              <td><div style="display:flex;align-items:center;gap:10px"><span class="em">🎹</span><div style="display:flex;flex-direction:column"><span style="font-weight:600">Practice piano</span><span style="font-size:12px;color:var(--muted)">Afternoon · Homework</span></div></div></td>
+              <td><div style="display:flex"><span class="av" style="background:#A9714B"></span></div></td>
+              <td style="font-weight:600">15</td>
+              <td>Every day · 5–20 Sep</td>
+              <td><div style="display:flex;gap:6px"><span class="rule"><svg viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"></path></svg>Parent</span><span class="rule"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>Expires</span></div></td>
+              <td><span class="st" style="background:var(--success-soft);color:#146B47"><span style="width:6px;height:6px;border-radius:999px;background:#1FA971"></span>Active</span></td>
+              <td style="color:var(--muted);text-align:center">···</td>
+            </tr>
+            <tr>
+              <td><div style="display:flex;align-items:center;gap:10px"><span class="em">🍽️</span><div style="display:flex;flex-direction:column"><span style="font-weight:600">Help set the table</span><span style="font-size:12px;color:var(--muted)">Evening · Family · Bonus</span></div></div></td>
+              <td><div style="display:flex"><span class="av" style="background:#F59A4A"></span><span class="av" style="background:#A9714B"></span><span class="av" style="background:#8E9BB5"></span></div></td>
+              <td style="font-weight:600">5</td>
+              <td>Every day</td>
+              <td><div style="display:flex;gap:6px"><span class="rule"><svg viewBox="0 0 24 24"><path d="M13 2 4 14h6l-1 8 9-12h-6z"></path></svg>Auto</span><span class="rule"><svg viewBox="0 0 24 24"><path d="m12 2 3 6.5 7 .8-5.2 4.8 1.5 7L12 17.5 5.7 21l1.5-7L2 9.3l7-.8z"></path></svg>Bonus</span></div></td>
+              <td><span class="st" style="background:var(--success-soft);color:#146B47"><span style="width:6px;height:6px;border-radius:999px;background:#1FA971"></span>Active</span></td>
+              <td style="color:var(--muted);text-align:center">···</td>
+            </tr>
+            <tr class="paused">
+              <td><div style="display:flex;align-items:center;gap:10px"><span class="em" style="opacity:.6">🏊</span><div style="display:flex;flex-direction:column"><span style="font-weight:600">Swimming practice</span><span style="font-size:12px;color:var(--muted)">Afternoon · Exercise</span></div></div></td>
+              <td><div style="display:flex"><span class="av" style="background:#F59A4A;opacity:.6"></span></div></td>
+              <td style="font-weight:600">20</td>
+              <td>Tue &amp; Thu</td>
+              <td><div style="display:flex;gap:6px"><span class="rule"><svg viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"></path></svg>Parent</span><span class="rule"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>Expires</span></div></td>
+              <td><span class="st" style="background:var(--warning-soft);color:#7A5A0A"><span style="width:6px;height:6px;border-radius:999px;background:#E0A21B"></span>Paused · holidays</span></td>
+              <td style="color:var(--muted);text-align:center">···</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+</div>
+</x-dc>
+</body>
+</html>

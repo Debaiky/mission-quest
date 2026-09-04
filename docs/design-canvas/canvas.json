@@ -1,0 +1,28 @@
+{
+  "artboards": [
+    { "file": "Main.dc.html",            "title": "Child · Home",             "x": 0,    "y": 0,    "w": 390,  "h": 844 },
+    { "file": "KidCelebration.dc.html",  "title": "Child · Mission complete", "x": 470,  "y": 0,    "w": 390,  "h": 844 },
+    { "file": "KidMissions.dc.html",     "title": "Child · Missions",         "x": 940,  "y": 0,    "w": 390,  "h": 844 },
+    { "file": "KidMap.dc.html",          "title": "Child · World map",        "x": 1410, "y": 0,    "w": 390,  "h": 844 },
+    { "file": "KidBadges.dc.html",       "title": "Child · Badges",           "x": 1880, "y": 0,    "w": 390,  "h": 844 },
+
+    { "file": "KidLogin.dc.html",        "title": "Child · Login",            "x": 0,    "y": 964,  "w": 390,  "h": 844 },
+    { "file": "KidProgress.dc.html",     "title": "Child · Progress",         "x": 470,  "y": 964,  "w": 390,  "h": 844 },
+    { "file": "KidRewards.dc.html",      "title": "Child · Rewards",          "x": 940,  "y": 964,  "w": 390,  "h": 844 },
+    { "file": "KidProfile.dc.html",      "title": "Child · Profile",          "x": 1410, "y": 964,  "w": 390,  "h": 844 },
+    { "file": "KidHomeNight.dc.html",    "title": "Alt · Night Sky home",     "x": 1880, "y": 964,  "w": 390,  "h": 844 },
+
+    { "file": "ParentDashboard.dc.html", "title": "Parent · Dashboard",       "x": 0,    "y": 1928, "w": 1440, "h": 900 },
+    { "file": "ParentApprovals.dc.html", "title": "Parent · Approvals",       "x": 1520, "y": 1928, "w": 1440, "h": 900 },
+    { "file": "ParentTasks.dc.html",     "title": "Parent · Tasks",           "x": 0,    "y": 2948, "w": 1440, "h": 900 },
+    { "file": "ParentTaskForm.dc.html",  "title": "Parent · Task form",       "x": 1520, "y": 2948, "w": 1440, "h": 1300 },
+    { "file": "ParentAnalytics.dc.html", "title": "Parent · Analytics",       "x": 0,    "y": 4368, "w": 1440, "h": 900 },
+    { "file": "Components.dc.html",      "title": "Design system",            "x": 1520, "y": 4368, "w": 1200, "h": 1760 }
+  ],
+  "annotations": [
+    { "id": "guide-rows", "x": 2380, "y": 0, "w": 300, "text": "How to read this canvas\n\nRows 1–2: the child app (Sunrise theme, phone 390×844). Home is the entry screen; the celebration shows the moment after an approval.\n\nRow 2, last frame: an alternate palette (Night Sky) on the same layout, for comparison only.\n\nRows 3–5: the parent app (Slate theme, desktop 1440×900).\n\nBottom right: tokens and component states that Phase 3 builds from." },
+    { "id": "note-night", "x": 2380, "y": 964, "w": 300, "text": "Night Sky is a token swap, not a redesign. Options: keep Sunrise as the only child theme, ship both with a child-selectable toggle, or use Night Sky automatically after the family's quiet hours." },
+    { "id": "note-approvals", "x": 3040, "y": 1928, "w": 300, "text": "Approvals: the retry side sheet shows the child-facing tone. Parents never see a “Reject” button; the child never sees the word." }
+  ],
+  "launch": { "view": "canvas" }
+}

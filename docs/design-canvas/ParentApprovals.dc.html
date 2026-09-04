@@ -1,0 +1,151 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Instrument+Sans:wght@400;500;600;700&display=swap">
+  <style>
+    :root{--bg:#F4F6FA;--surface:#FFFFFF;--surface2:#EEF1F7;--ink:#1A2233;--ink2:#3B4559;--muted:#66718A;--line:#E1E6EF;--primary:#4C4DDC;--primary-soft:#E6E6FB;--success:#1FA971;--success-soft:#DFF5EA;--warning:#B7830F;--warning-soft:#FBF1D8;--sun:#F5A623}
+    body{margin:0;background:var(--bg);font-family:"Instrument Sans",system-ui,"Segoe UI",sans-serif;color:var(--ink);font-size:14px;-webkit-font-smoothing:antialiased}
+    a{color:var(--primary)} a:hover{color:#3A3BB8}
+    .app{width:1440px;height:900px;overflow:hidden;display:grid;grid-template-columns:240px minmax(0,1fr);background:var(--bg)}
+    .side{background:var(--surface);border-right:1px solid var(--line);display:flex;flex-direction:column;padding:22px 14px;gap:4px}
+    .side a{display:flex;align-items:center;gap:10px;height:40px;padding:0 12px;border-radius:8px;color:var(--ink2);font-weight:500;text-decoration:none;font-size:14px}
+    .side a.on{background:var(--primary-soft);color:var(--primary);font-weight:600}
+    .side svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+    .wm{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-weight:700;font-size:20px;letter-spacing:-.01em;padding:0 12px 18px;display:flex;align-items:center;gap:10px}
+    .h1{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-weight:700;font-size:26px;letter-spacing:-.01em;line-height:1.1}
+    .h3{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-weight:600;font-size:16px}
+    .card{background:var(--surface);border:1px solid var(--line);border-radius:12px}
+    .btn{height:36px;padding:0 14px;border-radius:8px;display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:14px;white-space:nowrap}
+    .btn.p{background:var(--primary);color:#fff}
+    .btn.s{background:var(--surface);border:1px solid var(--line);color:var(--ink)}
+    .btn.g{background:var(--success);color:#fff}
+    .btn.sm{height:32px;padding:0 12px;font-size:13px}
+    .badge{display:inline-flex;align-items:center;justify-content:center;min-width:20px;height:20px;padding:0 6px;border-radius:999px;background:var(--primary);color:#fff;font-size:12px;font-weight:700}
+    .tab{height:36px;padding:0 4px;display:inline-flex;align-items:center;gap:8px;font-weight:600;color:var(--muted);border-bottom:2px solid transparent}
+    .tab.on{color:var(--ink);border-bottom-color:var(--primary)}
+    .row{display:grid;grid-template-columns:44px minmax(0,1fr) 80px auto;gap:14px;align-items:center;padding:12px 18px;border-top:1px solid var(--line)}
+    .em{width:44px;height:44px;border-radius:12px;background:var(--surface2);display:flex;align-items:center;justify-content:center;font-size:24px}
+    .pts{font-weight:700;font-variant-numeric:tabular-nums;display:flex;align-items:center;gap:5px;color:var(--ink2)}
+    .chip{height:30px;padding:0 12px;border-radius:999px;border:1px solid var(--line);display:inline-flex;align-items:center;font-size:13px;color:var(--ink2);background:var(--surface)}
+    .chip.on{background:var(--primary-soft);border-color:var(--primary-soft);color:var(--primary);font-weight:600}
+  </style>
+</helmet>
+<div class="app">
+  <aside class="side">
+    <div class="wm"><span style="width:28px;height:28px;border-radius:8px;background:var(--primary);display:inline-flex;align-items:center;justify-content:center"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"></circle><circle cx="12" cy="12" r="3"></circle></svg></span>Mission Quest</div>
+    <a href="#"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"></rect><rect x="14" y="3" width="7" height="7" rx="1.5"></rect><rect x="3" y="14" width="7" height="7" rx="1.5"></rect><rect x="14" y="14" width="7" height="7" rx="1.5"></rect></svg>Dashboard</a>
+    <a href="#"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"></circle><path d="M2.5 20c0-4 3-6 6.5-6s6.5 2 6.5 6"></path><circle cx="17" cy="9" r="2.5"></circle><path d="M17 14c2.8 0 4.5 1.8 4.5 5"></path></svg>Children</a>
+    <a href="#"><svg viewBox="0 0 24 24"><path d="M9 6h12M9 12h12M9 18h12"></path><path d="m3 6 1.5 1.5L7 5M3 12l1.5 1.5L7 11M3 18l1.5 1.5L7 17"></path></svg>Tasks</a>
+    <a href="#" class="on" style="justify-content:space-between"><span style="display:flex;align-items:center;gap:10px"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="m8.5 12 2.5 2.5 5-5"></path></svg>Approvals</span><span class="badge">4</span></a>
+    <a href="#"><svg viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="4" rx="1"></rect><path d="M12 8v13M5 12v9h14v-9"></path><path d="M12 8c-2-4-7-3-6-1s5 1 6 1zm0 0c2-4 7-3 6-1s-5 1-6 1z"></path></svg>Rewards</a>
+    <a href="#"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"></path></svg>Analytics</a>
+    <a href="#"><svg viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10 21a2 2 0 0 0 4 0"></path></svg>Notifications</a>
+    <a href="#"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"></path></svg>Settings</a>
+    <div style="flex:1"></div>
+    <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-top:1px solid var(--line)">
+      <div style="width:32px;height:32px;border-radius:999px;background:var(--primary-soft);color:var(--primary);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px">DP</div>
+      <div style="display:flex;flex-direction:column"><div style="font-weight:600;font-size:13.5px">Demo Parent</div><div style="font-size:12px;color:var(--muted)">Demo Family · Europe/London</div></div>
+    </div>
+  </aside>
+
+  <main style="display:flex;flex-direction:column;min-width:0">
+    <header style="height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 32px;border-bottom:1px solid var(--line);background:var(--surface)">
+      <div style="display:flex;flex-direction:column;gap:2px">
+        <div class="h1">Needs your approval</div>
+        <div style="font-size:13px;color:var(--muted)">Approving awards the points instantly and plays the celebration on the child's next visit.</div>
+      </div>
+      <span class="btn g"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m3 12 4 4 7-8M13 12l4 4 4-5"></path></svg>Approve all · 4</span>
+    </header>
+
+    <div style="display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:24px;padding:24px 32px;min-height:0">
+      <div style="display:flex;flex-direction:column;gap:18px;min-width:0">
+        <div style="display:flex;gap:20px;border-bottom:1px solid var(--line)">
+          <span class="tab on">Missions <span class="badge">4</span></span>
+          <span class="tab">Rewards <span class="badge" style="background:var(--surface2);color:var(--ink2)">1</span></span>
+        </div>
+
+        <div class="card">
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 18px">
+            <div style="display:flex;align-items:center;gap:10px">
+              <svg viewBox="0 0 64 64" width="32" height="32" aria-hidden="true"><circle cx="32" cy="32" r="32" fill="#DCE8FF"></circle><path d="M14 26 19 9l12 11zM50 26 45 9 33 20z" fill="#E9782E"></path><circle cx="32" cy="36" r="18" fill="#F59A4A"></circle><ellipse cx="32" cy="43" rx="10" ry="7" fill="#FFF3E6"></ellipse><circle cx="25" cy="34" r="2.6" fill="#1F2A44"></circle><circle cx="39" cy="34" r="2.6" fill="#1F2A44"></circle><circle cx="32" cy="41" r="2.2" fill="#1F2A44"></circle></svg>
+              <span class="h3">Alex</span><span style="font-size:13px;color:var(--muted)">2 missions · 25 points</span>
+            </div>
+            <span class="btn s sm">Approve all for Alex</span>
+          </div>
+          <div class="row">
+            <div class="em">🎒</div>
+            <div style="display:flex;flex-direction:column;gap:2px;min-width:0"><div style="font-weight:600;font-size:15px">Pack your school bag</div><div style="font-size:12.5px;color:var(--muted)">Submitted 7:42 AM · Morning · due 7:30 AM</div></div>
+            <div class="pts"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="m12 2 3 6.5 7 .8-5.2 4.8 1.5 7L12 17.5 5.7 21l1.5-7L2 9.3l7-.8z" fill="#F5A623"></path></svg>+10</div>
+            <div style="display:flex;gap:8px"><span class="btn s sm">Ask to retry</span><span class="btn g sm"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-10"></path></svg>Approve</span></div>
+          </div>
+          <div class="row" style="background:var(--primary-soft)">
+            <div class="em" style="background:#fff">📚</div>
+            <div style="display:flex;flex-direction:column;gap:4px;min-width:0"><div style="font-weight:600;font-size:15px">Read for 20 minutes</div><div style="font-size:12.5px;color:var(--muted)">Submitted 6:10 PM · Evening</div><div style="font-size:13px;color:var(--ink2);background:#fff;border-radius:8px;padding:6px 10px;display:inline-flex;gap:6px;align-self:flex-start"><span style="color:var(--muted)">Alex:</span>I read two chapters of Dog Man!</div></div>
+            <div class="pts"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="m12 2 3 6.5 7 .8-5.2 4.8 1.5 7L12 17.5 5.7 21l1.5-7L2 9.3l7-.8z" fill="#F5A623"></path></svg>+15</div>
+            <div style="display:flex;gap:8px"><span class="btn s sm" style="border-color:var(--primary);color:var(--primary)">Ask to retry</span><span class="btn g sm"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-10"></path></svg>Approve</span></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 18px">
+            <div style="display:flex;align-items:center;gap:10px">
+              <svg viewBox="0 0 64 64" width="32" height="32" aria-hidden="true"><circle cx="32" cy="32" r="32" fill="#ECE4FF"></circle><circle cx="17" cy="20" r="8" fill="#8B5A3C"></circle><circle cx="47" cy="20" r="8" fill="#8B5A3C"></circle><circle cx="32" cy="36" r="19" fill="#A9714B"></circle><ellipse cx="32" cy="43" rx="9" ry="6.5" fill="#E9C9A8"></ellipse><circle cx="25" cy="33" r="2.6" fill="#1F2A44"></circle><circle cx="39" cy="33" r="2.6" fill="#1F2A44"></circle><ellipse cx="32" cy="41" rx="2.6" ry="2" fill="#1F2A44"></ellipse></svg>
+              <span class="h3">Maya</span><span style="font-size:13px;color:var(--muted)">1 mission · 20 points · completes her golden day</span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="em">🧸</div>
+            <div style="display:flex;flex-direction:column;gap:2px;min-width:0"><div style="font-weight:600;font-size:15px">Tidy your room</div><div style="font-size:12.5px;color:var(--muted)">Submitted 5:05 PM · Afternoon · from yesterday</div></div>
+            <div class="pts"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="m12 2 3 6.5 7 .8-5.2 4.8 1.5 7L12 17.5 5.7 21l1.5-7L2 9.3l7-.8z" fill="#F5A623"></path></svg>+20</div>
+            <div style="display:flex;gap:8px"><span class="btn s sm">Ask to retry</span><span class="btn g sm"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-10"></path></svg>Approve</span></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 18px">
+            <div style="display:flex;align-items:center;gap:10px">
+              <svg viewBox="0 0 64 64" width="32" height="32" aria-hidden="true"><circle cx="32" cy="32" r="32" fill="#DDF5EA"></circle><path d="M15 28 18 10l12 12zM49 28 46 10 34 22z" fill="#6B7A99"></path><circle cx="32" cy="36" r="18" fill="#8E9BB5"></circle><ellipse cx="32" cy="43" rx="9" ry="6" fill="#F2F5FF"></ellipse><circle cx="25" cy="34" r="2.6" fill="#1F2A44"></circle><circle cx="39" cy="34" r="2.6" fill="#1F2A44"></circle><path d="M30 40h4l-2 2.5z" fill="#1F2A44"></path></svg>
+              <span class="h3">Leo</span><span style="font-size:13px;color:var(--muted)">1 mission · 10 points</span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="em">🐕</div>
+            <div style="display:flex;flex-direction:column;gap:2px;min-width:0"><div style="font-weight:600;font-size:15px">Feed the dog</div><div style="font-size:12.5px;color:var(--muted)">Submitted 4:48 PM · Anytime</div></div>
+            <div class="pts"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="m12 2 3 6.5 7 .8-5.2 4.8 1.5 7L12 17.5 5.7 21l1.5-7L2 9.3l7-.8z" fill="#F5A623"></path></svg>+10</div>
+            <div style="display:flex;gap:8px"><span class="btn s sm">Ask to retry</span><span class="btn g sm"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-10"></path></svg>Approve</span></div>
+          </div>
+        </div>
+      </div>
+
+      <aside class="card" style="padding:20px;display:flex;flex-direction:column;gap:16px;align-self:start">
+        <div style="display:flex;flex-direction:column;gap:4px">
+          <span style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600">Ask to retry</span>
+          <div class="h3">Read for 20 minutes · Alex</div>
+          <div style="font-size:13px;color:var(--muted);line-height:1.45">Alex sees this as a friendly note and the mission goes back to “to do”. It only counts as not done if the day ends first.</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <span style="font-size:13px;font-weight:600;color:var(--ink2)">Suggested notes</span>
+          <div style="display:flex;flex-wrap:wrap;gap:8px">
+            <span class="chip on">Almost there — one more try!</span>
+            <span class="chip">Nearly done — can you finish the last bit?</span>
+            <span class="chip">Looks great, just tidy the corners.</span>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <span style="font-size:13px;font-weight:600;color:var(--ink2)">Your note</span>
+          <div style="min-height:88px;border:1px solid var(--line);border-radius:8px;padding:10px 12px;font-size:14px;line-height:1.45;color:var(--ink)">Almost there — one more try! Read the last chapter too and tell me what happens 📖</div>
+        </div>
+        <div style="display:flex;gap:10px;justify-content:flex-end"><span class="btn s">Cancel</span><span class="btn p">Send to Alex</span></div>
+      </aside>
+    </div>
+  </main>
+</div>
+</x-dc>
+</body>
+</html>

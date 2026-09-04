@@ -1,0 +1,720 @@
+// Mission Quest — Prisma schema
+// Source of truth for the data model described in docs/phase-1-architecture.md §4.
+// Conventions:
+//  - `localDate` columns are "YYYY-MM-DD" strings in the family's timezone.
+//  - Nothing numeric about a child is stored as truth except the append-only PointTransaction ledger;
+//    ChildStats and DailyProgress are caches rebuilt from history.
+//  - Soft delete (archivedAt/disabledAt/removedAt) wherever history must survive.
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ───────────────────────── Tenancy & identity ─────────────────────────
+
+enum Role {
+  PARENT
+  CHILD
+}
+
+enum FamilyMode {
+  INDIVIDUAL
+  COOPERATIVE
+  LEADERBOARD
+}
+
+model Family {
+  id             String     @id @default(cuid())
+  name           String
+  code           String     @unique
+  timezone       String     @default("UTC")
+  mode           FamilyMode @default(COOPERATIVE)
+  settings       Json       @default("{}")
+  lastClosedDate String?
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+
+  users         User[]
+  children      Child[]
+  parents       Parent[]
+  tasks         Task[]
+  categories    Category[]
+  rewards       Reward[]
+  challenges    FamilyChallenge[]
+  reminders     Reminder[]
+  invites       FamilyInvite[]
+  notifications Notification[]
+  instances     TaskInstance[]
+  transactions  PointTransaction[]
+}
+
+model User {
+  id              String    @id @default(cuid())
+  familyId        String
+  role            Role
+  email           String?   @unique
+  emailVerifiedAt DateTime?
+  username        String
+  passwordHash    String
+  displayName     String
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  disabledAt      DateTime?
+
+  family        Family               @relation(fields: [familyId], references: [id], onDelete: Cascade)
+  parent        Parent?
+  child         Child?
+  sessions      Session[]
+  notifications Notification[]
+  pushSubs      PushSubscription[]
+  resetTokens   PasswordResetToken[]
+
+  @@unique([familyId, username])
+  @@index([familyId, role])
+}
+
+model Session {
+  id           String   @id
+  userId       String
+  expiresAt    DateTime
+  createdAt    DateTime @default(now())
+  lastActiveAt DateTime @default(now())
+  userAgent    String?
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model PasswordResetToken {
+  id        String    @id @default(cuid())
+  userId    String
+  tokenHash String    @unique
+  expiresAt DateTime
+  usedAt    DateTime?
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model LoginAttempt {
+  id         String   @id @default(cuid())
+  identifier String
+  success    Boolean
+  createdAt  DateTime @default(now())
+
+  @@index([identifier, createdAt])
+}
+
+model FamilyInvite {
+  id          String    @id @default(cuid())
+  familyId    String
+  email       String
+  tokenHash   String    @unique
+  invitedById String
+  expiresAt   DateTime
+  acceptedAt  DateTime?
+  family      Family    @relation(fields: [familyId], references: [id], onDelete: Cascade)
+}
+
+model Parent {
+  id                String   @id @default(cuid())
+  userId            String   @unique
+  familyId          String
+  notificationPrefs Json     @default("{}")
+  createdAt         DateTime @default(now())
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  family            Family   @relation(fields: [familyId], references: [id], onDelete: Cascade)
+
+  @@index([familyId])
+}
+
+model Child {
+  id          String    @id @default(cuid())
+  userId      String    @unique
+  familyId    String
+  displayName String
+  birthYear   Int?
+  avatar      Json      @default("{}")
+  themeKey    String    @default("sunrise")
+  settings    Json      @default("{}")
+  sortOrder   Int       @default(0)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  archivedAt  DateTime?
+
+  user          User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  family        Family             @relation(fields: [familyId], references: [id], onDelete: Cascade)
+  assignments   TaskAssignment[]
+  instances     TaskInstance[]
+  transactions  PointTransaction[]
+  dailyProgress DailyProgress[]
+  stats         ChildStats?
+  achievements  ChildAchievement[]
+  redemptions   RewardRedemption[]
+  celebrations  Celebration[]
+  cosmetics     ChildCosmetic[]
+  daysOff       DayOff[]
+  reminders     Reminder[]
+
+  @@index([familyId])
+}
+
+// ───────────────────────── Tasks ─────────────────────────
+
+enum ScheduleType {
+  ONCE
+  DAILY
+  WEEKLY
+}
+
+enum Difficulty {
+  EASY
+  NORMAL
+  HARD
+  EPIC
+}
+
+enum RolloverPolicy {
+  EXPIRE
+  ROLLOVER
+  PERSIST
+}
+
+enum ApprovalMode {
+  PARENT
+  AUTO
+}
+
+enum TaskStatus {
+  ACTIVE
+  PAUSED
+  ARCHIVED
+}
+
+enum TimeOfDay {
+  MORNING
+  AFTERNOON
+  EVENING
+  ANYTIME
+}
+
+model Category {
+  id         String    @id @default(cuid())
+  familyId   String?
+  key        String?
+  name       String
+  emoji      String
+  color      String
+  sortOrder  Int       @default(0)
+  archivedAt DateTime?
+  family     Family?   @relation(fields: [familyId], references: [id], onDelete: Cascade)
+  tasks      Task[]
+
+  @@index([familyId])
+}
+
+model Task {
+  id              String         @id @default(cuid())
+  familyId        String
+  createdById     String
+  title           String
+  description     String?
+  icon            String         @default("⭐")
+  categoryId      String?
+  points          Int
+  difficulty      Difficulty     @default(NORMAL)
+  timeOfDay       TimeOfDay      @default(ANYTIME)
+  scheduleType    ScheduleType
+  daysOfWeek      Int[]          @default([])
+  startDate       String
+  endDate         String?
+  dueTime         String?
+  rolloverPolicy  RolloverPolicy @default(EXPIRE)
+  approvalMode    ApprovalMode   @default(PARENT)
+  isOptional      Boolean        @default(false)
+  reminderEnabled Boolean        @default(false)
+  reminderTime    String?
+  status          TaskStatus     @default(ACTIVE)
+  archivedAt      DateTime?
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+
+  family      Family           @relation(fields: [familyId], references: [id], onDelete: Cascade)
+  category    Category?        @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  assignments TaskAssignment[]
+  instances   TaskInstance[]
+
+  @@index([familyId, status])
+}
+
+model TaskAssignment {
+  id        String    @id @default(cuid())
+  taskId    String
+  childId   String
+  createdAt DateTime  @default(now())
+  removedAt DateTime?
+  task      Task      @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  child     Child     @relation(fields: [childId], references: [id], onDelete: Cascade)
+
+  @@unique([taskId, childId])
+  @@index([childId])
+}
+
+enum InstanceStatus {
+  PENDING
+  SUBMITTED
+  APPROVED
+  MISSED
+  CANCELLED
+}
+
+model TaskInstance {
+  id             String         @id @default(cuid())
+  familyId       String
+  taskId         String
+  childId        String
+  localDate      String
+  originDate     String?
+  // snapshots — history must survive later task edits/deletes
+  title          String
+  icon           String
+  points         Int
+  categoryId     String?
+  timeOfDay      TimeOfDay
+  approvalMode   ApprovalMode
+  rolloverPolicy RolloverPolicy
+  isOptional     Boolean        @default(false)
+  dueTime        String?
+
+  status         InstanceStatus @default(PENDING)
+  submittedAt    DateTime?
+  reviewedAt     DateTime?
+  reviewedById   String?
+  retryCount     Int            @default(0)
+  lastNote       String?
+  childNote      String?
+  rolledOverToId String?        @unique
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+
+  family         Family              @relation(fields: [familyId], references: [id], onDelete: Cascade)
+  task           Task                @relation(fields: [taskId], references: [id], onDelete: Restrict)
+  child          Child               @relation(fields: [childId], references: [id], onDelete: Cascade)
+  rolledOverTo   TaskInstance?       @relation("Rollover", fields: [rolledOverToId], references: [id])
+  rolledOverFrom TaskInstance?       @relation("Rollover")
+  events         TaskInstanceEvent[]
+  transactions   PointTransaction[]
+
+  @@unique([taskId, childId, localDate])
+  @@index([childId, localDate])
+  @@index([familyId, status])
+}
+
+enum InstanceEventType {
+  CREATED
+  SUBMITTED
+  UNSUBMITTED
+  APPROVED
+  RETRY_REQUESTED
+  MISSED
+  ROLLED_OVER
+  CANCELLED
+  REVERSED
+}
+
+model TaskInstanceEvent {
+  id          String            @id @default(cuid())
+  instanceId  String
+  type        InstanceEventType
+  actorUserId String?
+  note        String?
+  createdAt   DateTime          @default(now())
+  instance    TaskInstance      @relation(fields: [instanceId], references: [id], onDelete: Cascade)
+
+  @@index([instanceId])
+}
+
+// ───────────────────────── Points ledger & derived stats ─────────────────────────
+
+enum TransactionType {
+  TASK_APPROVED
+  TASK_REVERSAL
+  BONUS_FIRST_MISSION
+  BONUS_PERFECT_DAY
+  BONUS_STREAK_MILESTONE
+  ACHIEVEMENT
+  CHALLENGE_REWARD
+  REWARD_REDEMPTION
+  REWARD_REFUND
+  MANUAL_ADJUSTMENT
+}
+
+/// Append-only. Never update or delete a row; reverse it with a new row.
+model PointTransaction {
+  id            String          @id @default(cuid())
+  familyId      String
+  childId       String
+  type          TransactionType
+  amount        Int
+  xpAmount      Int             @default(0)
+  localDate     String
+  description   String
+  dedupeKey     String?         @unique
+  instanceId    String?
+  achievementId String?
+  redemptionId  String?
+  challengeId   String?
+  reversesId    String?         @unique
+  createdById   String?
+  createdAt     DateTime        @default(now())
+
+  family     Family            @relation(fields: [familyId], references: [id], onDelete: Cascade)
+  child      Child             @relation(fields: [childId], references: [id], onDelete: Cascade)
+  instance   TaskInstance?     @relation(fields: [instanceId], references: [id], onDelete: SetNull)
+  redemption RewardRedemption? @relation(fields: [redemptionId], references: [id], onDelete: SetNull)
+
+  @@index([childId, localDate])
+  @@index([childId, createdAt])
+  @@index([instanceId])
+}
+
+model DailyProgress {
+  id             String   @id @default(cuid())
+  childId        String
+  localDate      String
+  assignedCount  Int      @default(0)
+  completedCount Int      @default(0)
+  approvedCount  Int      @default(0)
+  missedCount    Int      @default(0)
+  optionalDone   Int      @default(0)
+  pointsEarned   Int      @default(0)
+  isCounted      Boolean  @default(false)
+  hasActivity    Boolean  @default(false)
+  isGolden       Boolean  @default(false)
+  isDayOff       Boolean  @default(false)
+  isClosed       Boolean  @default(false)
+  computedAt     DateTime @default(now())
+  child          Child    @relation(fields: [childId], references: [id], onDelete: Cascade)
+
+  @@unique([childId, localDate])
+}
+
+model ChildStats {
+  childId               String   @id
+  pointsBalance         Int      @default(0)
+  lifetimeXp            Int      @default(0)
+  level                 Int      @default(1)
+  currentStreak         Int      @default(0)
+  longestStreak         Int      @default(0)
+  currentGoldenStreak   Int      @default(0)
+  longestGoldenStreak   Int      @default(0)
+  totalCompleted        Int      @default(0)
+  totalGoldenDays       Int      @default(0)
+  lastActiveDate        String?
+  streakLastCountedDate String?
+  updatedAt             DateTime @updatedAt
+  child                 Child    @relation(fields: [childId], references: [id], onDelete: Cascade)
+  levelRef              Level    @relation(fields: [level], references: [number])
+}
+
+model DayOff {
+  id          String   @id @default(cuid())
+  childId     String
+  localDate   String
+  reason      String?
+  createdById String
+  createdAt   DateTime @default(now())
+  child       Child    @relation(fields: [childId], references: [id], onDelete: Cascade)
+
+  @@unique([childId, localDate])
+}
+
+// ───────────────────────── Levels, achievements, cosmetics ─────────────────────────
+
+model Level {
+  number     Int          @id
+  name       String
+  xpRequired Int
+  worldKey   String
+  unlocks    Json         @default("[]")
+  stats      ChildStats[]
+}
+
+enum AchievementCategory {
+  STREAK
+  GOLDEN
+  POINTS
+  MISSIONS
+  CATEGORY
+  LEVEL
+  SPECIAL
+}
+
+model Achievement {
+  id           String              @id @default(cuid())
+  key          String              @unique
+  name         String
+  description  String
+  icon         String
+  category     AchievementCategory
+  criteria     Json
+  xpReward     Int                 @default(0)
+  pointsReward Int                 @default(0)
+  sortOrder    Int                 @default(0)
+  isSecret     Boolean             @default(false)
+  isActive     Boolean             @default(true)
+  unlockedBy   ChildAchievement[]
+}
+
+model ChildAchievement {
+  id            String      @id @default(cuid())
+  childId       String
+  achievementId String
+  unlockedAt    DateTime    @default(now())
+  seenAt        DateTime?
+  child         Child       @relation(fields: [childId], references: [id], onDelete: Cascade)
+  achievement   Achievement @relation(fields: [achievementId], references: [id], onDelete: Cascade)
+
+  @@unique([childId, achievementId])
+}
+
+enum CosmeticSlot {
+  BASE
+  SKIN
+  HAIR
+  OUTFIT
+  ACCESSORY
+  BACKGROUND
+  FRAME
+}
+
+enum UnlockType {
+  DEFAULT
+  LEVEL
+  ACHIEVEMENT
+  CHEST
+  PARENT_GRANT
+}
+
+model CosmeticItem {
+  id                   String          @id @default(cuid())
+  key                  String          @unique
+  slot                 CosmeticSlot
+  name                 String
+  rarity               String          @default("common")
+  unlockType           UnlockType      @default(DEFAULT)
+  unlockLevel          Int?
+  unlockAchievementKey String?
+  sortOrder            Int             @default(0)
+  isActive             Boolean         @default(true)
+  owners               ChildCosmetic[]
+}
+
+model ChildCosmetic {
+  id         String       @id @default(cuid())
+  childId    String
+  itemId     String
+  unlockedAt DateTime     @default(now())
+  source     String
+  child      Child        @relation(fields: [childId], references: [id], onDelete: Cascade)
+  item       CosmeticItem @relation(fields: [itemId], references: [id], onDelete: Cascade)
+
+  @@unique([childId, itemId])
+}
+
+enum CelebrationType {
+  MISSION_APPROVED
+  FIRST_MISSION_BONUS
+  PERFECT_DAY
+  LEVEL_UP
+  ACHIEVEMENT
+  STREAK_MILESTONE
+  GOLDEN_STREAK
+  REWARD_APPROVED
+  CHEST
+}
+
+model Celebration {
+  id        String          @id @default(cuid())
+  childId   String
+  type      CelebrationType
+  payload   Json
+  createdAt DateTime        @default(now())
+  seenAt    DateTime?
+  child     Child           @relation(fields: [childId], references: [id], onDelete: Cascade)
+
+  @@index([childId, seenAt])
+}
+
+// ───────────────────────── Rewards ─────────────────────────
+
+model Reward {
+  id          String             @id @default(cuid())
+  familyId    String
+  title       String
+  description String?
+  icon        String             @default("🎁")
+  costPoints  Int
+  stock       Int?
+  childIds    String[]           @default([])
+  isActive    Boolean            @default(true)
+  archivedAt  DateTime?
+  createdAt   DateTime           @default(now())
+  family      Family             @relation(fields: [familyId], references: [id], onDelete: Cascade)
+  redemptions RewardRedemption[]
+
+  @@index([familyId])
+}
+
+enum RedemptionStatus {
+  REQUESTED
+  APPROVED
+  FULFILLED
+  DECLINED
+  CANCELLED
+}
+
+model RewardRedemption {
+  id           String             @id @default(cuid())
+  rewardId     String
+  childId      String
+  costPoints   Int
+  status       RedemptionStatus   @default(REQUESTED)
+  note         String?
+  requestedAt  DateTime           @default(now())
+  reviewedAt   DateTime?
+  reviewedById String?
+  reward       Reward             @relation(fields: [rewardId], references: [id], onDelete: Restrict)
+  child        Child              @relation(fields: [childId], references: [id], onDelete: Cascade)
+  transactions PointTransaction[]
+
+  @@index([childId])
+}
+
+// ───────────────────────── Family challenges ─────────────────────────
+
+enum ChallengeStatus {
+  ACTIVE
+  COMPLETED
+  CANCELLED
+}
+
+model FamilyChallenge {
+  id           String          @id @default(cuid())
+  familyId     String
+  title        String
+  description  String?
+  icon         String          @default("🏁")
+  targetPoints Int
+  startDate    String
+  endDate      String
+  rewardTitle  String
+  status       ChallengeStatus @default(ACTIVE)
+  completedAt  DateTime?
+  createdById  String
+  createdAt    DateTime        @default(now())
+  family       Family          @relation(fields: [familyId], references: [id], onDelete: Cascade)
+
+  @@index([familyId, status])
+}
+
+// ───────────────────────── Notifications ─────────────────────────
+
+enum NotificationType {
+  TASK_SUBMITTED
+  TASK_APPROVED
+  TASK_RETRY
+  REMINDER
+  STREAK_AT_RISK
+  LEVEL_UP
+  ACHIEVEMENT_UNLOCKED
+  REWARD_REQUESTED
+  REWARD_DECIDED
+  DAILY_SUMMARY
+  WEEKLY_RECAP
+  SYSTEM
+}
+
+enum Channel {
+  IN_APP
+  PUSH
+  EMAIL
+}
+
+enum DeliveryStatus {
+  PENDING
+  SENT
+  FAILED
+  SKIPPED
+}
+
+model Notification {
+  id          String                 @id @default(cuid())
+  familyId    String
+  recipientId String
+  type        NotificationType
+  title       String
+  body        String
+  data        Json                   @default("{}")
+  dedupeKey   String?                @unique
+  readAt      DateTime?
+  createdAt   DateTime               @default(now())
+  family      Family                 @relation(fields: [familyId], references: [id], onDelete: Cascade)
+  recipient   User                   @relation(fields: [recipientId], references: [id], onDelete: Cascade)
+  deliveries  NotificationDelivery[]
+
+  @@index([recipientId, readAt, createdAt])
+}
+
+model NotificationDelivery {
+  id             String         @id @default(cuid())
+  notificationId String
+  channel        Channel
+  status         DeliveryStatus @default(PENDING)
+  attempts       Int            @default(0)
+  lastError      String?
+  sentAt         DateTime?
+  nextAttemptAt  DateTime       @default(now())
+  notification   Notification   @relation(fields: [notificationId], references: [id], onDelete: Cascade)
+
+  @@unique([notificationId, channel])
+  @@index([status, nextAttemptAt])
+}
+
+model PushSubscription {
+  id         String    @id @default(cuid())
+  userId     String
+  endpoint   String    @unique
+  p256dh     String
+  auth       String
+  userAgent  String?
+  createdAt  DateTime  @default(now())
+  lastUsedAt DateTime?
+  failCount  Int       @default(0)
+  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+enum ReminderStatus {
+  SCHEDULED
+  SENT
+  CANCELLED
+}
+
+model Reminder {
+  id           String         @id @default(cuid())
+  familyId     String
+  childId      String
+  message      String
+  scheduledFor DateTime
+  status       ReminderStatus @default(SCHEDULED)
+  sentAt       DateTime?
+  createdById  String
+  createdAt    DateTime       @default(now())
+  family       Family         @relation(fields: [familyId], references: [id], onDelete: Cascade)
+  child        Child          @relation(fields: [childId], references: [id], onDelete: Cascade)
+
+  @@index([status, scheduledFor])
+}

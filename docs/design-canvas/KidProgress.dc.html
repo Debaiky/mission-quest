@@ -1,0 +1,123 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@500;600;700;800&display=swap">
+  <style>
+    :root{--bg1:#F3F7FF;--bg2:#E6EEFF;--surface:#FFFFFF;--surface2:#EEF3FF;--ink:#1F2A44;--ink2:#3F4B6B;--muted:#6B7A99;--line:#DCE4F5;--sky:#3F7BEA;--sky-deep:#2F63C9;--sky-soft:#DCE8FF;--sun:#F5A623;--sun-soft:#FFF1D6;--sun-ink:#7A4E00;--gold:#E3A008;--flame:#FF6B35;--flame-soft:#FFE4D9;--leaf:#2DB07A;--leaf-soft:#DDF5EA;--leaf-ink:#146B47;--berry:#8B5CF6;--berry-soft:#ECE4FF;--berry-ink:#5B3BB0;--shadow:0 6px 20px rgba(31,42,68,.08)}
+    body{margin:0;background:#E6EEFF;font-family:Nunito,"Segoe UI",system-ui,sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased}
+    a{color:var(--sky)} a:hover{color:var(--sky-deep)}
+    .phone{width:390px;height:844px;overflow:hidden;position:relative;display:flex;flex-direction:column;background:linear-gradient(180deg,var(--bg1) 0%,var(--bg2) 100%)}
+    .content{flex:1;min-height:0;display:flex;flex-direction:column;gap:16px;padding:52px 20px 0}
+    .disp{font-family:"Baloo 2","Arial Rounded MT Bold","Trebuchet MS",sans-serif;font-weight:800;letter-spacing:-.01em}
+    .card{background:var(--surface);border-radius:20px;box-shadow:var(--shadow)}
+    .label{font-size:13px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+    .seg{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px;padding:4px;border-radius:16px;background:var(--surface2);width:200px}
+    .seg div{height:44px;display:flex;align-items:center;justify-content:center;border-radius:12px;font-weight:800;font-size:15px;color:var(--muted)}
+    .seg div.on{background:var(--surface);color:var(--ink);box-shadow:var(--shadow)}
+    .tile{display:flex;flex-direction:column;gap:2px;padding:12px 12px;border-radius:16px;background:var(--surface2)}
+    .tile .v{font-family:"Baloo 2",sans-serif;font-weight:800;font-size:24px;line-height:1}
+    .tile .k{font-size:12px;font-weight:800;color:var(--muted)}
+    .ax{font-family:Nunito,sans-serif;font-weight:800;font-size:12px;fill:#6B7A99;text-anchor:middle}
+    .val{font-family:"Baloo 2",sans-serif;font-weight:800;font-size:14px;fill:#1F2A44;text-anchor:middle}
+    .nav{flex:none;height:84px;padding:8px 8px 20px;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:2px;background:var(--surface);border-top:1.5px solid var(--line)}
+    .nav a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border-radius:14px;font-size:11px;font-weight:800;color:var(--muted);text-decoration:none;height:56px}
+    .nav a.on{background:var(--sky-soft);color:var(--sky)}
+    .nav svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  </style>
+</helmet>
+<div class="phone">
+  <div class="content">
+
+    <div style="display:flex;align-items:center;justify-content:space-between">
+      <div class="disp" style="font-size:30px;line-height:1.05">Progress</div>
+      <div class="seg"><div class="on">Week</div><div>Month</div></div>
+    </div>
+
+    <div class="card" style="padding:18px 16px 14px;display:flex;flex-direction:column;gap:12px">
+      <div style="display:flex;flex-direction:column;gap:2px">
+        <div class="disp" style="font-size:22px;line-height:1.1">You earned 325 points!</div>
+        <div style="font-size:14px;font-weight:700;color:var(--muted)">This week · Mon 1 – Sun 7 Sep</div>
+      </div>
+
+      <svg viewBox="0 0 342 200" width="342" height="200" role="img" aria-label="Points per day this week. Best day Saturday with 80 points. Golden days: Monday, Wednesday, Saturday.">
+        <line x1="8" y1="166" x2="334" y2="166" stroke="#DCE4F5" stroke-width="1"></line>
+        <g>
+          <rect x="24" y="118" width="24" height="48" fill="#3F7BEA"></rect><rect x="24" y="118" width="24" height="8" rx="4" fill="#3F7BEA"></rect>
+          <path d="M31 104l5 4 5-7 5 7 5-4-1.5 11h-17z" fill="#E3A008"></path>
+          <text x="36" y="188" class="ax">Mon</text>
+        </g>
+        <g>
+          <rect x="70" y="94" width="24" height="72" fill="#3F7BEA"></rect><rect x="70" y="94" width="24" height="8" rx="4" fill="#3F7BEA"></rect>
+          <text x="82" y="188" class="ax">Tue</text>
+        </g>
+        <g>
+          <rect x="116" y="86" width="24" height="80" fill="#3F7BEA"></rect><rect x="116" y="86" width="24" height="8" rx="4" fill="#3F7BEA"></rect>
+          <path d="M123 72l5 4 5-7 5 7 5-4-1.5 11h-17z" fill="#E3A008"></path>
+          <text x="128" y="188" class="ax">Wed</text>
+        </g>
+        <g>
+          <rect x="162" y="134" width="24" height="32" fill="#3F7BEA"></rect><rect x="162" y="134" width="24" height="8" rx="4" fill="#3F7BEA"></rect>
+          <text x="174" y="188" class="ax">Thu</text>
+        </g>
+        <g>
+          <rect x="208" y="70" width="24" height="96" fill="#3F7BEA"></rect><rect x="208" y="70" width="24" height="8" rx="4" fill="#3F7BEA"></rect>
+          <text x="220" y="188" class="ax">Fri</text>
+        </g>
+        <g>
+          <rect x="254" y="38" width="24" height="128" fill="#3F7BEA"></rect><rect x="254" y="38" width="24" height="8" rx="4" fill="#3F7BEA"></rect>
+          <path d="m266 6 2.6 5.6 6.1.7-4.5 4.2 1.3 6.1L266 19.5l-5.5 3.1 1.3-6.1-4.5-4.2 6.1-.7z" fill="#F5A623"></path>
+          <text x="266" y="34" class="val" style="font-size:13px">80</text>
+          <text x="266" y="188" class="ax" style="fill:#1F2A44">Sat</text>
+        </g>
+        <g>
+          <rect x="300" y="102" width="24" height="64" fill="#DCE8FF" stroke="#3F7BEA" stroke-width="2" stroke-dasharray="4 3"></rect>
+          <text x="312" y="96" class="val">40</text>
+          <text x="312" y="188" class="ax">Sun</text>
+          <rect x="296" y="192" width="32" height="6" rx="3" fill="#3F7BEA"></rect>
+        </g>
+      </svg>
+
+      <div style="display:flex;align-items:center;gap:8px;padding:10px 12px;border-radius:14px;background:var(--sun-soft);color:var(--sun-ink);font-weight:800;font-size:15px">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="m12 2 3 6.5 7 .8-5.2 4.8 1.5 7L12 17.5 5.7 21l1.5-7L2 9.3l7-.8z" fill="#F5A623"></path></svg>
+        Your best day was Saturday!
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px">
+      <div class="tile"><div class="v">23</div><div class="k">missions done</div></div>
+      <div class="tile" style="background:var(--sun-soft)"><div class="v" style="color:var(--sun-ink)">3</div><div class="k" style="color:var(--sun-ink)">golden days</div></div>
+      <div class="tile"><div class="v">46</div><div class="k">points a day</div></div>
+    </div>
+
+    <div class="card" style="padding:14px 16px;display:flex;flex-direction:column;gap:10px">
+      <span class="label">This week's favourites</span>
+      <div style="display:flex;align-items:center;gap:12px">
+        <div style="width:44px;height:44px;border-radius:14px;background:var(--surface2);display:flex;align-items:center;justify-content:center;font-size:24px">🦷</div>
+        <div style="display:flex;flex-direction:column;gap:1px;flex:1"><div class="disp" style="font-size:16px">Brush your teeth</div><div style="font-size:13px;font-weight:700;color:var(--muted)">Most done · 7 times</div></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px">
+        <div style="width:44px;height:44px;border-radius:14px;background:var(--surface2);display:flex;align-items:center;justify-content:center;font-size:24px">🧸</div>
+        <div style="display:flex;flex-direction:column;gap:1px;flex:1"><div class="disp" style="font-size:16px">Tidy your room</div><div style="font-size:13px;font-weight:700;color:var(--muted)">Biggest mission · 20 points</div></div>
+      </div>
+    </div>
+
+  </div>
+
+  <nav class="nav" aria-label="Main">
+    <a href="#"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8v9a2 2 0 0 1-2 2h-4v-6H9v6H5a2 2 0 0 1-2-2z"></path></svg>Home</a>
+    <a href="#"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="12" r="5"></circle><circle cx="12" cy="12" r="1.5"></circle></svg>Missions</a>
+    <a href="#"><svg viewBox="0 0 24 24"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2z"></path><path d="M9 4v14M15 6v14"></path></svg>Map</a>
+    <a href="#"><svg viewBox="0 0 24 24"><circle cx="12" cy="9" r="6"></circle><path d="m8.5 14-1.5 7 5-3 5 3-1.5-7"></path></svg>Badges</a>
+    <a href="#"><svg viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="4" rx="1"></rect><path d="M12 8v13M5 12v9h14v-9"></path><path d="M12 8c-2-4-7-3-6-1s5 1 6 1zm0 0c2-4 7-3 6-1s-5 1-6 1z"></path></svg>Rewards</a>
+    <a href="#" class="on"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4 4-6 8-6s8 2 8 6"></path></svg>Me</a>
+  </nav>
+</div>
+</x-dc>
+</body>
+</html>
