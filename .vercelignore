@@ -1,0 +1,13 @@
+# Only source is needed; Vercel installs and builds.
+.git
+.pg
+.next
+node_modules
+docs
+tests
+test-results
+playwright-report
+.claude
+.env
+.env.local
+*.log
